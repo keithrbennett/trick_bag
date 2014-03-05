@@ -11,6 +11,14 @@ module Enumerables
 #     array = [1] + [15]*3 + [60]*15 + [300]
 #
 # Values should only be nonzero positive integers.
+#
+# Why would this ever be useful?  It was created for the benefit of a long
+# running program, to provide time intervals for checking and reporting.
+# It was helpful to report frequently at the beginning of the run, to give
+# the user an opportunity to more easily verify correct behavior. Since
+# the operations performed were potentially time consuming, we did not
+# want to perform them frequently after the beginning of the run.
+# For example, the array provided might have been [1] + [5] * 10 + [10] * 10 + [30].
   class EndlessLastEnumerable
 
     include Enumerable
