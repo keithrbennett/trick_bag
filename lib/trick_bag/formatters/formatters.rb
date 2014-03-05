@@ -20,8 +20,6 @@ module Formatters
     fractional_second = seconds - Integer(seconds)
     seconds = Integer(seconds)
 
-
-
     days = seconds / seconds_in_day
     print_days = days > 0
     seconds %= seconds_in_day

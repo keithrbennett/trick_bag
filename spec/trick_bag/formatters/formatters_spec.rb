@@ -19,17 +19,23 @@ describe Formatters do
       end
     end
 
+    # Positive numbers
     expect_output_for_input.('1 s',                    1)
     expect_output_for_input.('1 m, 0 s',              60)
     expect_output_for_input.('3 m, 37 s',              3 * 60 + 37)
     expect_output_for_input.('1 h, 0 m, 0 s',         60 * 60)
     expect_output_for_input.('1 d, 0 h, 0 m, 0 s',    24 * 60 * 60)
 
+    # Negative numbers
     expect_output_for_input.('-1 s',                    -1)
     expect_output_for_input.('-1 m, 0 s',              -60)
     expect_output_for_input.('-3 m, 37 s',             -(3 * 60 + 37))
     expect_output_for_input.('-1 h, 0 m, 0 s',         -60 * 60)
     expect_output_for_input.('-1 d, 0 h, 0 m, 0 s',    -24 * 60 * 60)
+
+    # Zero
+    expect_output_for_input.('0 s',                    0)
+
   end
 
 
