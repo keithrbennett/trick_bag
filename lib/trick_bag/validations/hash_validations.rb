@@ -21,6 +21,8 @@ module HashValidations
     missing_keys.empty? ? nil : missing_keys.join(', ')
   end
 
+  # Checks to see that all passed keys are present in the hash.
+  # If not, an exception is raised, with a message string listing the missing keys.
   def raise_on_missing_keys(the_hash, *keys)
     missing_entries_string = missing_hash_entries_as_string(the_hash, keys)
     if missing_entries_string
