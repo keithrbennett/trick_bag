@@ -1,7 +1,7 @@
 module TrickBag
 module Numeric
 
-# Counts the results of any resolver comparisons made.
+# Supports multiple counts, each identified by a key.
 # Like a hash, but does not allow []=; increment is the only way to modify a value.
 class MultiCounter
 
