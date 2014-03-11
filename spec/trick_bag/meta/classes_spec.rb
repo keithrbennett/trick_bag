@@ -6,7 +6,7 @@ module Meta
 
 describe Classes do
 
-  after(:each) { Classes.undef_class('ClassPatchTestClass') }
+  after(:each) { Classes.undef_class('ClassPatchTestClass', TrickBag::Meta) }
 
 
 ####################################################### class?
@@ -17,7 +17,7 @@ context 'class?' do
     expect(Classes.class?('String')).to be_true
   end
 
-  it 'should recognize that RUBY_PLATFORM is defined but is not a class' do
+  it 'should recognize that RUBY_PLATFORM is not a class even though it is a defined constant' do
     expect(Classes.class?('RUBY_PLATFORM')).to be_false
   end
 
@@ -46,30 +46,17 @@ end
 
   context 'private_attr_reader' do
 
-    after(:each) { Classes.undef_class('ClassPatchTestClass') }
-
     fn_create_class = ->do
       class ClassPatchTestClass
-
         extend Classes
-
         private_attr_reader :foo
-
-        def initialize
-          @foo = 123
-          puts "foo = #{self.foo}"
-        end
       end
     end
 
 
-      it "should be visible inside the class" do
-      expect(fn_create_class).not_to raise_error
-    end
-
-    it "should be invisible outside the class" do
+    it "should be a private method" do
       fn_create_class.()
-      expect(->{ ClassPatchTestClass.new.foo }).to raise_error
+      expect(ClassPatchTestClass.private_method_defined?(:foo)).to be_true
     end
   end
 
@@ -80,27 +67,15 @@ end
 
     fn_create_class = ->do
       class ClassPatchTestClass
-
         extend Classes
-
         private_attr_writer :foo
-
-        def initialize
-          self.foo = 123
-        end
       end
     end
 
-
-    it "should be visible inside the class" do
-      expect(fn_create_class).not_to raise_error
-    end
-
-    it "should be invisible outside the class" do
+    it "should be a private method" do
       fn_create_class.()
-      expect(->{ ClassPatchTestClass.new.foo = 456}).to raise_error
+      expect(ClassPatchTestClass.private_method_defined?(:foo=)).to be_true
     end
-
   end
 
 ####################################################### private_attr_accessor
@@ -122,16 +97,11 @@ end
     end
 
 
-    it "should be visible inside the class" do
-      expect(fn_create_class).not_to raise_error
-    end
-
-    it "should be invisible outside the class" do
+    it "should be private reader and writer" do
       fn_create_class.()
-      expect(->{ ClassPatchTestClass.new.foo = 456}).to raise_error
-      expect(->{ ClassPatchTestClass.new.foo }).to raise_error
+      expect(ClassPatchTestClass.private_method_defined?(:foo)).to be_true
+      expect(ClassPatchTestClass.private_method_defined?(:foo=)).to be_true
     end
-
   end
 
 
@@ -154,56 +124,37 @@ end
     end
 
 
-    it "should be readable and writable inside the class" do
-      expect(fn_create_class).not_to raise_error
+    it "should be a public reader" do
+      fn_create_class.()
+      expect(ClassPatchTestClass.public_method_defined?(:foo)).to be_true
     end
 
-    it "should be readable outside the class" do
+    it "should be a private writer" do
       fn_create_class.()
-      expect(->{ ClassPatchTestClass.new.foo }).not_to raise_error
-    end
-
-    it "should not be writable outside the class" do
-      fn_create_class.()
-      expect(->{ ClassPatchTestClass.new.foo = 456}).to raise_error
+      expect(ClassPatchTestClass.private_method_defined?(:foo=)).to be_true
     end
   end
+
 
   context 'attr_access(:private, :none, :foo)' do
 
     fn_create_class = ->do
       class ClassPatchTestClass
-
         extend Classes
-
         attr_access :private, :none, :foo
-
-        def initialize
-          @foo = 1
-          self.foo
-        end
       end
     end
 
-
-    it "should be readable inside the class" do
-      expect(fn_create_class).not_to raise_error
+    it "should be a private reader" do
+      fn_create_class.()
+      expect(ClassPatchTestClass.private_method_defined?(:foo)).to be_true
     end
 
-
-    it "should not be readable outside the class" do
+    it 'should not contain a writer at all' do
       fn_create_class.()
-      expect(->{ ClassPatchTestClass.new.foo }).to raise_error
-    end
-
-    it "should not be readable outside the class" do
-      fn_create_class.()
-      expect(->{ ClassPatchTestClass.new.foo }).to raise_error
-    end
-
-    it "should not be writable outside the class" do
-      fn_create_class.()
-      expect(->{ ClassPatchTestClass.new.foo = 456}).to raise_error
+      expect(ClassPatchTestClass.private_method_defined?(:foo=)).to be_false
+      expect(ClassPatchTestClass.protected_method_defined?(:foo=)).to be_false
+      expect(ClassPatchTestClass.public_method_defined?(:foo=)).to be_false
     end
   end
 end

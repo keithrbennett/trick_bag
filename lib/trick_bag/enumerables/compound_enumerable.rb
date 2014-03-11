@@ -47,7 +47,6 @@ class CompoundEnumerable
   end
 
 
-
   def initialize(mode, keys, *enumerables)
 
     validate_inputs = ->do
