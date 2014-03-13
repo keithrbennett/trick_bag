@@ -1,3 +1,8 @@
+## v0.32.0
+
+* Added timestamp, replace_with_timestamp in Formatters.
+
+
 ## v0.31.0
 
 * Added EndlessLastEnumerable.

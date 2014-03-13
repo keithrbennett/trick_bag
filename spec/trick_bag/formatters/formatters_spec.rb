@@ -1,5 +1,6 @@
 require_relative '../../spec_helper'
 
+require 'date'
 require 'trick_bag/formatters/formatters'
 
 module TrickBag
@@ -55,6 +56,22 @@ describe Formatters do
 
     specify "it converts a number and then adds a new line" do
       expect(Formatters.end_with_nl(3)).to eq("3\n")
+    end
+  end
+
+
+  context ".replace_with_timestamp" do
+
+    let(:a_date) { DateTime.new(2000, 1, 2, 15, 44, 37) }
+
+    specify "returns the correct string" do
+      s = Formatters.replace_with_timestamp('*', '*', a_date)
+      expect(s).to eq('2000-01-02_15-44-37')
+      #regex = /^\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d$/
+      #puts s
+      #expect(regex === s).to be_true
+      #
+      #
     end
   end
 end

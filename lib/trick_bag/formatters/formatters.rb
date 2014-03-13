@@ -1,3 +1,5 @@
+require 'date'
+
 module TrickBag
 module Formatters
 
@@ -48,6 +50,18 @@ module Formatters
     string = object.to_s
     needs_modifying = string && string.size > 0 && string[-1] != "\n"
     needs_modifying ? "#{string}\n" : string
+  end
+
+
+  def timestamp(datetime = DateTime.now)
+    datetime.strftime('%Y-%m-%d_%H-%M-%S')
+  end
+
+
+  # Replaces all occurrences of marker with the current date/time in
+  # YYYYMMDD-HHMMSS format.
+  def replace_with_timestamp(string, marker = '*', datetime = DateTime.now)
+    string.gsub(marker, timestamp(datetime))
   end
 end
 end
