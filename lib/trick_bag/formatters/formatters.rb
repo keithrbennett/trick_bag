@@ -74,7 +74,9 @@ module Formatters
   # only "\r" followed by "\n" should be removed?  Or if we want to account for
   # character sets that might include characters that have "\r"'s numeric value,
   # 13, or 0xd, as part of their legitimate values?
-  # This method may need to be modified.
+  # This method may need to be modified.  An example of a more complex
+  # implementation is at:
+  # http://dos2unix.sourcearchive.com/documentation/5.0-1/dos2unix_8c-source.html.
   #
   # Note: The 'os' gem can be used to determine os.
   def dos2unix(string)
