@@ -66,6 +66,16 @@ module Formatters
 
 
   # Like the Unix dos2unix command, but on strings rather than files, strips CR characters.
+  #
+  # WARNING:
+  #
+  # Currently the code's implementation is very simple; it unconditionally
+  # removes all occurrences of "\r".  However, what if we want to ensure that
+  # only "\r" followed by "\n" should be removed?  Or if we want to account for
+  # character sets that might include characters that have "\r"'s numeric value,
+  # 13, or 0xd, as part of their legitimate values?
+  # This method may need to be modified.
+  #
   # Note: The 'os' gem can be used to determine os.
   def dos2unix(string)
     string ? string.gsub("\r", '') : string
@@ -74,6 +84,7 @@ module Formatters
 
   # Like the Unix dos2unix command, but on strings rather than files, strips CR characters.
   # Modifies the original string.
+  # See warning in dos2unix header.
   # Note: The 'os' gem can be used to determine os.
   def dos2unix!(string)
     string ? string.gsub!("\r", '') : string
