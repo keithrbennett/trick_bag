@@ -1,3 +1,8 @@
+## v0.33.0
+
+* Added dos2unix and dos2unix! to Formatters.
+
+
 ## v0.32.0
 
 * Added timestamp, replace_with_timestamp in Formatters.

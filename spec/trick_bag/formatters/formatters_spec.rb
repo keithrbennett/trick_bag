@@ -74,5 +74,34 @@ describe Formatters do
       #
     end
   end
+
+
+  context ".dos2unix" do
+
+    specify "strings not containing line endings remain unchanged" do
+      strings = ['', 'abc', ' ']
+      expect(strings.map { |s| Formatters.dos2unix(s) }).to eq(strings)
+    end
+
+    specify "CR characters are stripped" do
+      expect(Formatters.dos2unix("foo\r\nbar\r\n")).to eq("foo\nbar\n")
+    end
+  end
+
+  context ".dos2unix!" do
+
+    specify "strings not containing line endings remain unchanged" do
+      expect(Formatters.dos2unix('')).to    eq('')
+      expect(Formatters.dos2unix(' ')).to   eq(' ')
+      expect(Formatters.dos2unix('abc')).to eq('abc')
+    end
+
+    specify "CR characters are stripped" do
+      s = "foo\r\nbar\r\n"
+      Formatters.dos2unix!(s)
+      expect(s).to eq("foo\nbar\n")
+    end
+  end
+
 end
 end

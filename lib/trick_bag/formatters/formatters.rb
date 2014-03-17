@@ -60,9 +60,25 @@ module Formatters
 
   # Replaces all occurrences of marker with the current date/time in
   # YYYYMMDD-HHMMSS format.
-  def replace_with_timestamp(string, marker = '*', datetime = DateTime.now)
+  def replace_with_timestamp(string, marker = '{dt}', datetime = DateTime.now)
     string.gsub(marker, timestamp(datetime))
   end
+
+
+  # Like the Unix dos2unix command, but on strings rather than files, strips CR characters.
+  # Note: The 'os' gem can be used to determine os.
+  def dos2unix(string)
+    string ? string.gsub("\r", '') : string
+  end
+
+
+  # Like the Unix dos2unix command, but on strings rather than files, strips CR characters.
+  # Modifies the original string.
+  # Note: The 'os' gem can be used to determine os.
+  def dos2unix!(string)
+    string ? string.gsub!("\r", '') : string
+  end
+
 end
 end
 
