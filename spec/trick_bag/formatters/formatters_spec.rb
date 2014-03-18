@@ -86,6 +86,10 @@ describe Formatters do
     specify "CR characters are stripped" do
       expect(Formatters.dos2unix("foo\r\nbar\r\n")).to eq("foo\nbar\n")
     end
+
+    specify "a bad strategy will result in a raised error" do
+      expect(->() { Formatters.dos2unix('', :not_a_strategy) }).to raise_error
+    end
   end
 
   context ".dos2unix!" do

@@ -65,27 +65,36 @@ module Formatters
   end
 
 
-  # Like the Unix dos2unix command, but on strings rather than files, strips CR characters.
+  # Like the Unix dos2unix command, but on strings rather than files,
+  # strips CR ("\r", 13, 0xD) characters.
   #
   # WARNING:
   #
-  # Currently the code's implementation is very simple; it unconditionally
-  # removes all occurrences of "\r".  However, what if we want to ensure that
-  # only "\r" followed by "\n" should be removed?  Or if we want to account for
+  # Currently, two strategies are supported, but they do not account for
   # character sets that might include characters that have "\r"'s numeric value,
-  # 13, or 0xd, as part of their legitimate values?
-  # This method may need to be modified.  An example of a more complex
-  # implementation is at:
+  # 13, or 0xd, as part of their legitimate values, so we may need to
+  # add strategies to accommodate this.
+  #
+  # An example of a more complex implementation is at:
   # http://dos2unix.sourcearchive.com/documentation/5.0-1/dos2unix_8c-source.html.
   #
   # Note: The 'os' gem can be used to determine os.
+  #
+  # @param string the string to convert
+  # @param strategy the strategy to use for the conversion (note: the default
+  #        may change over time, so if you're sure you want to use the current
+  #        default even if the default changes, don't rely on the default; specify it)
   def dos2unix(string, strategy = :remove_all_cr)
     strategies = {
-        remove_all_cr:     ->(s) { string.gsub("\r", '') },
-        remove_cr_in_crlf: ->(s) { string.gsub("\r\n", "\n") }
+        remove_all_cr:     -> { string.gsub("\r", '') },
+        remove_cr_in_crlf: -> { string.gsub("\r\n", "\n") }
     }
 
-    strategies[strategy].(string)
+    unless strategies.keys.include?(strategy)
+      raise "Unsupported strategy: #{strategy}. Must be one of [#{strategies.keys.sort.join(', ')}]."
+    end
+
+    strategies[strategy].()
   end
 
 
