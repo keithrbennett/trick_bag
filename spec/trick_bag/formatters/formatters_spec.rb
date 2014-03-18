@@ -90,16 +90,33 @@ describe Formatters do
 
   context ".dos2unix!" do
 
-    specify "strings not containing line endings remain unchanged" do
-      expect(Formatters.dos2unix('')).to    eq('')
-      expect(Formatters.dos2unix(' ')).to   eq(' ')
-      expect(Formatters.dos2unix('abc')).to eq('abc')
+    context ':remove_all_cr' do
+      specify "strings not containing line endings remain unchanged" do
+        expect(Formatters.dos2unix('', :remove_all_cr)).to    eq('')
+        expect(Formatters.dos2unix(' ', :remove_all_cr)).to   eq(' ')
+        expect(Formatters.dos2unix('abc', :remove_all_cr)).to eq('abc')
+      end
+
+      specify "CR characters are stripped" do
+        s = "foo\r\nbar\r\n"
+        Formatters.dos2unix!(s, :remove_all_cr)
+        expect(s).to eq("foo\nbar\n")
+      end
     end
 
-    specify "CR characters are stripped" do
-      s = "foo\r\nbar\r\n"
-      Formatters.dos2unix!(s)
-      expect(s).to eq("foo\nbar\n")
+    context 'remove_cr_in_crlf' do
+
+      specify "strings not containing line endings remain unchanged" do
+        expect(Formatters.dos2unix('', :remove_cr_in_crlf)).to    eq('')
+        expect(Formatters.dos2unix(' ', :remove_cr_in_crlf)).to   eq(' ')
+        expect(Formatters.dos2unix('abc', :remove_cr_in_crlf)).to eq('abc')
+      end
+
+      specify "cr is replaced only in crlf" do
+        s = "\rfoo\r\nbar\r\n\r"
+        expect(Formatters.dos2unix(s, :remove_cr_in_crlf)).to eq("\rfoo\nbar\n\r")
+
+      end
     end
   end
 

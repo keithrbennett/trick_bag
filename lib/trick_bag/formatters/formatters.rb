@@ -79,8 +79,13 @@ module Formatters
   # http://dos2unix.sourcearchive.com/documentation/5.0-1/dos2unix_8c-source.html.
   #
   # Note: The 'os' gem can be used to determine os.
-  def dos2unix(string)
-    string ? string.gsub("\r", '') : string
+  def dos2unix(string, strategy = :remove_all_cr)
+    strategies = {
+        remove_all_cr:     ->(s) { string.gsub("\r", '') },
+        remove_cr_in_crlf: ->(s) { string.gsub("\r\n", "\n") }
+    }
+
+    strategies[strategy].(string)
   end
 
 
@@ -88,8 +93,8 @@ module Formatters
   # Modifies the original string.
   # See warning in dos2unix header.
   # Note: The 'os' gem can be used to determine os.
-  def dos2unix!(string)
-    string ? string.gsub!("\r", '') : string
+  def dos2unix!(string, strategy = :remove_all_cr)
+    string.replace(dos2unix(string, strategy))
   end
 
 end
