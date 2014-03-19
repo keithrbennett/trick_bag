@@ -1,3 +1,8 @@
+## v0.34.0
+
+* Added FileLineReader, StartMax.  Added strategies to dos2unix.
+
+
 ## v0.33.0
 
 * Added dos2unix and dos2unix! to Formatters.
