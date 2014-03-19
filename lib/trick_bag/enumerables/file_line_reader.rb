@@ -25,6 +25,16 @@ class FileLineReader
   end
 
 
+  def start_pos
+    start_and_max.start_pos
+  end
+
+
+  def max_count
+    start_and_max.max_count
+  end
+
+
   def line_valid?(line)
     ! (line.empty? || /^#/ === line)
   end

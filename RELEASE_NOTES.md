@@ -1,3 +1,8 @@
+## v0.35.0
+
+* Added start_pos and max_count accessors to FileLineReader.
+
+
 ## v0.34.0
 
 * Added FileLineReader, StartMax.  Added strategies to dos2unix.

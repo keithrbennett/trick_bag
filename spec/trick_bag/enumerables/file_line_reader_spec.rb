@@ -113,6 +113,15 @@ nbc.com
       enumerator = subject.each
       expect(-> { 3.times { enumerator.close } }).not_to raise_error
     end
+
+    specify "start_pos returns the value passed to the constructor" do
+      expect(FileLineReader.new(@tempfile.path, 10).start_pos).to eq(10)
+    end
+
+    specify "max_count returns the value passed to the constructor" do
+      expect(FileLineReader.new(@tempfile.path, 10, 200).max_count).to eq(200)
+    end
+
   end
 end
 end
