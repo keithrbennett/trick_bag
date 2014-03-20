@@ -1,3 +1,8 @@
+## v0.36.0
+
+* Add System module w/lsof and command_available? methods.
+
+
 ## v0.35.0
 
 * Added start_pos and max_count accessors to FileLineReader.

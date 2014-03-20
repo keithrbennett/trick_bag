@@ -3,6 +3,7 @@ require 'tempfile'
 
 require_relative '../../spec_helper'
 require 'trick_bag/enumerables/file_line_reader'
+require 'trick_bag/system'
 
 module TrickBag
 module Enumerables
@@ -31,7 +32,7 @@ nbc.com
       @tempfile.unlink
     end
 
-    let(:can_run_lsof?) { OS.posix? && system('which lsof > /dev/null') }
+    let(:can_run_lsof?) { OS.posix? && System.command_available?('lsof') }
 
     subject { FileLineReader.new(@tempfile.path) }
 
@@ -96,13 +97,10 @@ nbc.com
         pending "This test can only be run on a Posix-based OS having the 'lsof' command."
       end
 
-      get_lsof_lines = -> do
-        output = `lsof -p #{Process.pid} | grep file_domain_reader_spec`
-        output.split("\n")
-      end
+      get_lsof_lines = -> { System.lsof.grep(/file_domain_reader_spec/) }
 
       reader = FileLineReader.new(@tempfile.path, 0, 1)
-      reader.each do |line|
+      reader.each do |_|  # using _ as an identifier signifies that the value is not used
         expect(get_lsof_lines.().size).to eq(1)
       end
       expect(get_lsof_lines.().size).to eq(0)
@@ -121,7 +119,6 @@ nbc.com
     specify "max_count returns the value passed to the constructor" do
       expect(FileLineReader.new(@tempfile.path, 10, 200).max_count).to eq(200)
     end
-
   end
 end
 end
