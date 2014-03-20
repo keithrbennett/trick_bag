@@ -1,3 +1,8 @@
+## v0.37.0
+
+* Fixed: 'os' gem dependency was not properly specified in gemspec.
+
+
 ## v0.36.0
 
 * Add System module w/lsof and command_available? methods.
