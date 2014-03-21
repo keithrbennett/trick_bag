@@ -1,3 +1,5 @@
+require 'set'
+
 module TrickBag
 module Enumerables
 
@@ -23,16 +25,16 @@ module Enumerables
 
     include Enumerable
 
-    attr_reader :array
+    attr_reader :inner_enumerable
 
-    def initialize(array_or_number)
-      @array = case array_or_number
-        when Array
-         array_or_number
+    def initialize(enumerable_or_number)
+      @inner_enumerable = case enumerable_or_number
+        when Enumerable
+         enumerable_or_number
         when Numeric
-         [array_or_number]
+         Array(enumerable_or_number)
         else
-         raise RuntimeError.new("Unsupported data type (#{array_or_number.class}.")
+         raise RuntimeError.new("Unsupported data type (#{enumerable_or_number.class}.")
         end
       @pos = 0
     end
@@ -40,20 +42,21 @@ module Enumerables
 
     def each
       return to_enum unless block_given?
+      last_number = nil
+
+      inner_enumerable.each do |number|
+        yield(number)
+        last_number = number
+      end
+
       loop do
-        if @pos >= @array.size
-          value = @array.last
-        else
-          value = @array[@pos]
-          @pos += 1
-        end
-        yield(value)
+        yield(last_number)
       end
     end
 
 
     def ==(other)   # mostly for testing
-      other.is_a?(self.class) && other.array == array
+      other.is_a?(self.class) && other.inner_enumerable == inner_enumerable
     end
   end
 end

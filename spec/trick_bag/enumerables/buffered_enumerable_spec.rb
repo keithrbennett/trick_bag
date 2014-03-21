@@ -88,12 +88,12 @@ module Enumerables
 
           def initialize(chunk_size, array)
             super(chunk_size)
-            @array = array
+            @inner_enumerable = array
           end
 
           def fetch
-            num_times = [chunk_size, @array.size].min
-            num_times.times { @data << @array.shift }
+            num_times = [chunk_size, @inner_enumerable.size].min
+            num_times.times { @data << @inner_enumerable.shift }
           end
         end
       end

@@ -29,9 +29,9 @@ module TrickBag::Enumerables
     it "should return the original array and then repeat the last" do
       array = (0..7).to_a
       e = EndlessLastEnumerable.new(array).each
-      expect(e.take(8)).to eq(array)
-      expect(e.take(12)).to eq([7] * 12)
+      expect(e.take(20)).to eq(array + ([7] * 12))
     end
+
 
     it "should return == for 2 instances created with the same array" do
       array = (0..10).to_a
@@ -51,6 +51,17 @@ module TrickBag::Enumerables
       expect(EndlessLastEnumerable.new([1]).each).to be_a(Enumerator)
     end
 
+    context 'initializing with non-Array enumerables' do
+      specify 'it does not raise an error when initialized with a set' do
+        set = Set.new([1, 2])
+        expect(->() { EndlessLastEnumerable.new(set) }).not_to raise_error
+      end
+
+      specify 'it behaves correctly when initialized with a set' do
+        set = Set.new([1, 2])
+        expect(EndlessLastEnumerable.new(set).take(4)).to eq([1,2,2,2])
+      end
+    end
   end
 
 end
