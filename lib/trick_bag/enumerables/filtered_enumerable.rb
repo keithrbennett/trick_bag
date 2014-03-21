@@ -15,7 +15,7 @@ class FilteredEnumerable
   attr_reader :wrapped_enumerator
   attr_accessor :filter
 
-  def initialize(wrapped_enumerator, filter = nil)
+  def initialize(wrapped_enumerator, filter = ->(_) { true })
     @wrapped_enumerator = wrapped_enumerator
     @filter = filter
   end
@@ -24,7 +24,7 @@ class FilteredEnumerable
     return to_enum unless block_given?
 
     wrapped_enumerator.each do |thing|
-      yield thing if filter.nil? || filter.(thing)
+      yield thing if filter.(thing)
     end
   end
 end
