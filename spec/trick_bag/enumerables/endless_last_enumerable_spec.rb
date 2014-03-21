@@ -46,6 +46,11 @@ module TrickBag::Enumerables
       e2 = EndlessLastEnumerable.new([2, 1])
       expect(e1).not_to eq(e2)
     end
+
+    it 'returns an Enumerator when each is called without a block' do
+      expect(EndlessLastEnumerable.new([1]).each).to be_a(Enumerator)
+    end
+
   end
 
 end

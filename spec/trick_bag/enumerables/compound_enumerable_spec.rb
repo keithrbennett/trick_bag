@@ -75,6 +75,10 @@ module Enumerables
         it "provides the 'take' method" do
           expect(->{ CompoundEnumerable.array_enumerable([1, 2, 3]).take(2)}).not_to raise_error
         end
+
+        it 'returns an Enumerator when each is called without a block' do
+          expect(CompoundEnumerable.array_enumerable([1, 2, 3]).each).to be_a(Enumerator)
+        end
       end
     end
 

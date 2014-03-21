@@ -30,6 +30,11 @@ module Enumerables
       expect(enumerator.next).to eq(4)
       expect(-> { enumerator.next }).to raise_error(StopIteration)
     end
+
+    it 'returns an Enumerator when each is called without a block' do
+      expect(FilteredEnumerable.new([]).each).to be_a(Enumerator)
+    end
+
   end
 end
 end

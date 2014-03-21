@@ -106,6 +106,9 @@ nbc.com
       expect(get_lsof_lines.().size).to eq(0)
     end
 
+  it 'returns an Enumerator when each is called without a block' do
+    expect(subject.each).to be_a(Enumerator)
+  end
 
     specify "calling the enumerator's close method multiple times will not raise an error" do
       enumerator = subject.each

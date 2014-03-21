@@ -73,6 +73,7 @@ module Enumerables
         (1..10).each do |n|
           expect(enumerator.next).to eq(n)
         end
+        expect(enumerator).to be_a(Enumerator)
         expect(enumerable.chunk_fetch_calls).to eq(3)
         expect(enumerable.object_count).to eq(12)
         ::TrickBag::Meta::Classes.undef_class(:BufferedEnumerableSubclass, TrickBag)

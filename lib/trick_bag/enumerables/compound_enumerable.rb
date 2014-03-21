@@ -47,6 +47,8 @@ class CompoundEnumerable
   end
 
 
+  # @param mode determines whether each should yield hashes or arrays.
+  # Permissible values are [:yields_arrays, :yields_hashes].
   def initialize(mode, keys, *enumerables)
 
     validate_inputs = ->do

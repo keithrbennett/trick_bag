@@ -9,6 +9,13 @@ module Enumerables
 #
 # If calling each without a block to get an enumerator, call enumerator.close when done
 # if not all values have been exhausted, so that the input file will be closed.
+#
+# Supports specifying a starting position and maximum count.  For example
+# if the starting position is 2, then the first 2 valid lines will be
+# discarded, and yielding will begin with the next valid line.
+#
+# Similarly, specifying a maximum count will cause yielding to end after
+# max_count objects have been yielded.
 class FileLineReader
 
   include Enumerable
@@ -24,22 +31,27 @@ class FileLineReader
     @start_and_max = TrickBag::Numeric::StartAndMax.new(start_pos, max_count)
   end
 
-
+  # @return the position of the first valid object to be yielded.
   def start_pos
     start_and_max.start_pos
   end
 
 
+  # @return the maximum number of objects to be yielded
   def max_count
     start_and_max.max_count
   end
 
 
+  # @param line the line to test
+  # @return whether or not this line is valid (eligible for yielding),
+  #        specifically not empty and not a comment
   def line_valid?(line)
     ! (line.empty? || /^#/ === line)
   end
 
 
+  # Closes the file if it is not null and has not already been closed
   def close_file(file)
     if file && (! file.closed?)
       file.close
@@ -47,12 +59,15 @@ class FileLineReader
   end
 
 
-  # Any enum returned should have a close method to close the file from which lines are read.
-  # Get the enumerator from the superclass, and add a close method to it.
+  # Any enumerator returned should have a close method to close the file
+  # from which lines are read.  This method gets an enumerator from the superclass,
+  # and adds a 'file' attribute and a close method to it.
   def to_enum(file)
     enumerator = super()
     enumerator.instance_variable_set(:@file, file)
 
+    # This method is defined on the instance of the new enumerator.
+    # It closes the input file.
     def enumerator.close
       if @file && (! @file.closed?)
         @file.close
