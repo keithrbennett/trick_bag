@@ -1,5 +1,19 @@
+
+require 'trick_bag/meta/classes'
+
+module TrickBag
+module Enumerables
+
 # Provides the plumbing for an enumerator that, in order to serve objects in each(),
 # fetches them in chunks.
+#
+# This class knows nothing about how to fetch anything; that behavior is provided
+# by either subclassing this class, or calling .create_with_lambdas and passing
+# a lambda that knows how to do that.
+#
+# Also supported is an optional fetch notification, a method or lambda that will
+# be called whenever a fetch is done.  This can be useful to update counters,
+# provide user feedback (e.g. a progress bar)
 #
 # This is useful, for example, in network requests, when multiple requests can be sent
 # one immediately after another, and the responses can be collected as a group,
@@ -10,15 +24,10 @@
 # needlessly copying arrays,
 # and to eliminate the need for garbage collecting many array objects
 # (though the latter is not that important).
-
-require 'trick_bag/meta/classes'
-
-module TrickBag
-module Enumerables
-
 class BufferedEnumerable
 
   include Enumerable
+
   extend ::TrickBag::Meta::Classes
 
   attr_accessor :fetcher, :fetch_notifier
@@ -28,6 +37,10 @@ class BufferedEnumerable
   attr_access :public,    :private,   :chunk_count, :fetch_count, :yield_count
 
 
+  # Creates an instance with lambdas for fetch and fetch notify behaviors.
+  # @param chunk_size the maximum number of objects to be buffered
+  # @param fetcher lambda to be called to fetch to fill the buffer
+  # @param fetch_notifier lambda to be called to when a fetch is done
   def self.create_with_lambdas(chunk_size, fetcher, fetch_notifier)
     instance = self.new(chunk_size)
     instance.fetcher = fetcher
@@ -35,9 +48,9 @@ class BufferedEnumerable
     instance
   end
 
-  # @param fetcher a lambda/proc taking the chunk size as its parameter
-  # @param chunk_size how many objects to fetch at a time
-  # @param fetch_notifier a lambda/proc to be called when a fetch is done;
+  # @param fetcher lambda to be called to fetch to fill the buffer
+  # @param chunk_size the maximum number of objects to be buffered
+  # @param fetch_notifier lambda to be called to when a fetch is done
   #        in case the caller wants to receive notification, update counters, etc.
   #        It's passed the array of objects just fetched, whose size may be
   #        less than chunk size.
@@ -64,6 +77,10 @@ class BufferedEnumerable
   end
 
 
+  # Enumerable.each method.
+  # Note that, like all Enumerable.each methods, if you pass it without a block,
+  # it will return an enumerator, and any cleanup that would normally be done
+  # after each's loop has completed will not happen.
   def each
     return to_enum unless block_given?
 

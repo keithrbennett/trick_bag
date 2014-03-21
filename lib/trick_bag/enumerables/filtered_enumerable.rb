@@ -12,18 +12,18 @@ class FilteredEnumerable
 
   include Enumerable
 
-  attr_reader :inner_enum
+  attr_reader :wrapped_enumerator
   attr_accessor :filter
 
-  def initialize(inner_enum, filter = nil)
-    @inner_enum = inner_enum
+  def initialize(wrapped_enumerator, filter = nil)
+    @wrapped_enumerator = wrapped_enumerator
     @filter = filter
   end
 
   def each
     return to_enum unless block_given?
 
-    inner_enum.each do |thing|
+    wrapped_enumerator.each do |thing|
       yield thing if filter.nil? || filter.(thing)
     end
   end

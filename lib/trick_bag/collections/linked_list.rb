@@ -3,7 +3,6 @@ module Collections
 
 # Linked List based on git@github.com:neilparikh/ruby-linked-list.git,
 # but modified somewhat.
-
 class LinkedList
 
   class Node
@@ -18,18 +17,21 @@ class LinkedList
   attr_accessor :first
   attr_reader :length
 
+
+  # @param items items with which to initialize the list
   def initialize(*items)
     @length = items.length
     @first = Node.new(items.shift)
     items.each { |item| push(item) }
   end
 
-  # adds value to end of list
-  # returns self
+
+  # @param value value to add to end of list
+  # @return self
   def push(value)
     node = Node.new(value)
     current_node = @first
-    while current_node.next != nil
+    while current_node.next
       current_node = current_node.next
     end
     current_node.next = node
@@ -37,8 +39,9 @@ class LinkedList
     self
   end
 
-  # Removes last element from list
-  # returns that element's value
+
+  # Returns the last element from the list and removes it
+  # @return the last element's value
   def pop
     case(@length)
 
@@ -64,8 +67,9 @@ class LinkedList
   end
 
 
-  # adds value to beginning of list
-  # returns self
+  # Adds a value to the beginning of the list
+  # @param value value to add to beginning of list
+  # @return self
   def unshift(value)
     node = Node.new(value, @first)
     @first = node
@@ -73,16 +77,19 @@ class LinkedList
     self
   end
 
-  # Removes first element from list
-  # returns that element's value
+
+  # Removes the first element from the list
+  # @return the first element's value
   def shift
     raise "List is empty" if @length < 1
-    to_return = @first.value
+    return_value = @first.value
     @first = @first.next
     @length -= 1
-    to_return
+    return_value
   end
 
+
+  # @return the values in this list as an array
   def to_a
     current_node = @first
     array = []
@@ -91,6 +98,12 @@ class LinkedList
       current_node = current_node.next
     end
     array
+  end
+
+
+  # @return the values in this list as an array
+  def to_ary
+    to_a
   end
 end
 end

@@ -8,9 +8,11 @@ module Collections
 
 describe LinkedList do
 
+  let(:sample_array) { [1, 2, 3] }
+  let(:sample_list) { LinkedList.new(*sample_array) }
+
   specify 'to_a should return an array equal to the array with which it was initialized' do
-    array = [1, 3, 5]
-    expect(LinkedList.new(*array).to_a).to eq(array)
+    expect(LinkedList.new(*sample_array).to_a).to eq(sample_array)
   end
 
   it 'should push correctly' do
@@ -20,9 +22,8 @@ describe LinkedList do
   end
 
   it 'should pop from a list of multiple elements correctly' do
-    list = LinkedList.new(1, 2, 3)
-    expect(list.pop).to eq(3)
-    expect(list.to_a).to eq([1, 2])
+    expect(sample_list.pop).to eq(3)
+    expect(sample_list.to_a).to eq([1, 2])
   end
 
   it 'should pop from a list of 1 element correctly' do
@@ -44,9 +45,8 @@ describe LinkedList do
   end
 
   it 'should shift correctly from a list containing multiple elements' do
-    list = LinkedList.new(1, 3, 4)
-    expect(list.shift).to eq(1)
-    expect(list.to_a).to eq([3, 4])
+    expect(sample_list.shift).to eq(1)
+    expect(sample_list.to_a).to eq([2, 3])
   end
 
   it 'should shift correctly from a list containing 1 element' do
@@ -58,6 +58,12 @@ describe LinkedList do
   it 'should raise an error when shifting from an empty list' do
     list = LinkedList.new
     expect(->{ list.shift }).to raise_error(RuntimeError)
+  end
+
+  specify 'to_ary should return an array identical to that returned by to_a' do
+    a = sample_list.to_a
+    ary = sample_list.to_ary
+    expect(ary).to eq(a)
   end
 end
 end
