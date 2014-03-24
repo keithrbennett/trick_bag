@@ -1,3 +1,14 @@
+## v0.38.0
+
+* Added documentation.
+* Changed string returned by missing_hash_entries_as_string to be array.inspect.
+* TextModeStatusUpdater.print now calls to_s on lambda's return value.
+* Modified EndlessLastEnumerable so it could be initialized with any Enumerable, not only an Array.
+* Added documentation, tests that enumerators return enumerables when yield is called without a block.
+* Changed FilteredEnumerable default filter to be a lambda that always returns true.
+* Added LinkedList#to_ary.
+
+
 ## v0.37.0
 
 * Fixed: 'os' gem dependency was not properly specified in gemspec.
