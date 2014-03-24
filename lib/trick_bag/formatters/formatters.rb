@@ -5,13 +5,20 @@ module Formatters
 
   module_function
 
+  # Formats a number of seconds as a succinct string, with days, hours,
+  # minutes, and seconds.  Examples:
+  #
+  # duration_to_s(1_000_000)  => "11 d, 13 h, 46 m, 40 s"
+  # duration_to_s(1_000)      => "16 m, 40 s"
+  # duration_to_s(-1_000)     => "-16 m, 40 s"
+  # duration_to_s(1.234567)   => "1.234567 s"
+  # duration_to_s(1000.234567) => "16 m, 40.23456699999997 s"
   def duration_to_s(seconds)
 
     seconds_in_minute = 60
     seconds_in_hour = 60 * seconds_in_minute
     seconds_in_day = 24 *seconds_in_hour
 
-    seconds = seconds.to_i
     str = ''
 
     if seconds < 0
@@ -53,6 +60,9 @@ module Formatters
   end
 
 
+  # Returns a timestamp string suitable for use in filespecs,
+  # whose string sort order will be the same as a chronological sort would be.
+  # @param datetime the date to format, defaults to DateTime.now
   def timestamp(datetime = DateTime.now)
     datetime.strftime('%Y-%m-%d_%H-%M-%S')
   end
@@ -60,7 +70,12 @@ module Formatters
 
   # Replaces all occurrences of marker with the current date/time in
   # YYYYMMDD-HHMMSS format.
-  def replace_with_timestamp(string, marker = '{dt}', datetime = DateTime.now)
+  #
+  # Useful for creating filespecs with static content that will differ by date,
+  # for example:
+  #
+  # replace_with_timestamp('my-app-result-{dt}.txt') => "my-app-result-2014-03-24_15-25-57.txt"
+    def replace_with_timestamp(string, marker = '{dt}', datetime = DateTime.now)
     string.gsub(marker, timestamp(datetime))
   end
 
