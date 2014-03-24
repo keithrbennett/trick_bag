@@ -30,7 +30,7 @@ module Validations
     it 'should return a correct string listing missing keys' do
       h = { a: 1, c: 1, e: 1}
       keys_to_test = [:e, :d, :c, :b, :a]
-      expect(missing_hash_entries_as_string(h, keys_to_test)).to eq('d, b')
+      expect(missing_hash_entries_as_string(h, keys_to_test)).to eq("[:d, :b]")
     end
 
 

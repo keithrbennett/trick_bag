@@ -14,6 +14,8 @@ module Timing
   #   that returns a truthy value that indicates no further retries are necessary
   # @param sleep_interval  number of seconds (fractions ok) to wait between tries
   # @param timeout_secs maximum number of seconds (fractions ok) during which to retry
+  #
+  # Ex: TrickBag::Timing.retry_until_true_or_timeout(->{false}, 1.0, 5)
   def retry_until_true_or_timeout(
       predicate, sleep_interval, timeout_secs, output_stream = $stdout)
 

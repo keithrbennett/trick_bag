@@ -14,11 +14,12 @@ module HashValidations
     keys.reject { |key| the_hash.keys.include?(key) }
   end
 
+
   # Looks to see which keys, if any, are missing from the hash.
   # @return nil if none missing, else comma separated string of missing keys.
   def missing_hash_entries_as_string(the_hash, *keys)
     missing_keys = missing_hash_entries(the_hash, *keys)
-    missing_keys.empty? ? nil : missing_keys.join(', ')
+    missing_keys.empty? ? nil : missing_keys.inspect
   end
 
   # Checks to see that all passed keys are present in the hash.
