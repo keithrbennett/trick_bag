@@ -111,6 +111,11 @@ class FileLineReader
       close_file(file)
     end
   end
+
+
+  def to_s
+    "#{self.class}: filespec: #{filespec}, start_pos: #{start_pos.inspect}, max_count: #{max_count.inspect}"
+  end
 end
 end
 end

@@ -1,3 +1,9 @@
+## v0.39.0
+
+* Added CoreTypes.clone_hash_except.
+* Added FileLineReader.to_s.
+
+
 ## v0.38.0
 
 * Added documentation.
