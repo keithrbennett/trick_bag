@@ -1,3 +1,9 @@
+## v0.40.0
+
+* Added Validations.raise_on_invalid_value.
+* Moved all validations into same module.
+
+
 ## v0.39.0
 
 * Added CoreTypes.clone_hash_except.

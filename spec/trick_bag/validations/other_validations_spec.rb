@@ -23,7 +23,7 @@ module TrickBag
       rescue => error
         expect(/manufacturer/ === error.message).to be_true
         expect(/:bar/ === error.message).to be_true
-        expect(error.message).to eq("Invalid manufacturer; must be one of: [:bar, :baz].")
+        expect(error.message).to eq("Invalid manufacturer 'foo'; must be one of: [:bar, :baz].")
       end
     end
   end
