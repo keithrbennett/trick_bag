@@ -1,6 +1,6 @@
 module TrickBag
 module Validations
-module HashValidations
+
   module_function
 
   # Looks to see which keys, if any, are missing from the hash.
@@ -30,7 +30,6 @@ module HashValidations
       raise "The following required options were not provided: #{missing_entries_string}"
     end
   end
-end
 end
 end
 

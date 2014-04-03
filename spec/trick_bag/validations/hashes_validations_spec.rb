@@ -3,10 +3,10 @@ require_relative '../../spec_helper.rb'
 require 'trick_bag/validations/hash_validations'
 
 module TrickBag
-module Validations
-  describe HashValidations do
 
-  include HashValidations
+describe Validations do
+
+  include Validations
 
   context '.missing_hash_entries' do
 
@@ -63,7 +63,6 @@ module Validations
       expect(->() { raise_on_missing_keys(my_hash, :foo, :baz) }).not_to raise_error
     end
   end
-end
 end
 end
 

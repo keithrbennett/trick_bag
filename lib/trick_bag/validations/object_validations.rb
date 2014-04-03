@@ -1,6 +1,5 @@
 module TrickBag
 module Validations
-module ObjectValidations
 
   module_function
 
@@ -21,6 +20,5 @@ module ObjectValidations
       raise "The following instance variables were nil: #{nil_vars.join(', ')}."
     end
   end
-end
 end
 end
