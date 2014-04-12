@@ -1,3 +1,8 @@
+## v0.42.0
+
+* Added ErbRenderer class, which functions as a bag of values for ERB rendering.
+
+
 ## v0.41.0
 
 *  Added Timing.benchmark().
