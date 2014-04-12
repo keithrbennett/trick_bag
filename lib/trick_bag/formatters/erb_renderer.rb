@@ -31,7 +31,7 @@ class ErbRenderer < OpenStruct
 
   # Useful for seeing what values are stored in the OpenStruct.
   def keys
-    @table.keys.clone
+    @table.keys
   end
 end
 
