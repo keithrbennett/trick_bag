@@ -1,3 +1,8 @@
+## v0.41.0
+
+*  Added Timing.benchmark().
+
+
 ## v0.40.0
 
 * Added Validations.raise_on_invalid_value.

@@ -1,4 +1,5 @@
 require 'trick_bag/io/text_mode_status_updater'
+require 'benchmark'
 
 module TrickBag
 module Timing
@@ -43,6 +44,27 @@ module Timing
     end
     print "\n"
     success
+  end
+
+
+  # Executes the passed block with the Ruby Benchmark standard library.
+  # Prints the benchmark string to the specified output stream.
+  # Returns the passed block's return value.
+  #
+  # e.g.   benchmark('time to loop 1,000,000 times') { 1_000_000.times { 42 }; 'hi' }
+  # outputs to the specified output stream the following string:
+  #   0.050000   0.000000   0.050000 (  0.042376): time to loop 1,000,000 times
+  #  and returns: 42
+  #
+  # @param caption the text fragment to print after the timing data
+  # @param out_stream object responding to << that will get the output string
+  #   @default $stdout
+  # @block the block to execute and benchmark
+  def benchmark(caption, out_stream = $stdout, &block)
+    return_value = nil
+    bm = Benchmark.measure { return_value = block.call }
+    out_stream << bm.to_s.chomp << ": #{caption}\n"
+    return_value
   end
 
 end
