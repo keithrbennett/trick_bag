@@ -1,3 +1,8 @@
+## v0.43.0
+
+* Added any?, all?, none?.
+
+
 ## v0.42.0
 
 * Added ErbRenderer class, which functions as a bag of values for ERB rendering.
