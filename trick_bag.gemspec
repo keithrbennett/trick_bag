@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = TrickBag::VERSION
   spec.authors       = ["Keith Bennett"]
   spec.email         = ["keithrbennett@gmail.com"]
-  spec.description   = %q{Miscellaneous general useful tools.}
-  spec.summary       = spec.description
+  spec.description   = %q{Miscellaneous general useful tools for general purpose programming.}
+  spec.summary       = %q{Miscellaneous general useful tools.}
   spec.homepage      = "https://github.com/keithrbennett/trick_bag"
   spec.license       = "MIT"
 
@@ -18,11 +18,11 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "os"
+  spec.add_dependency "os", '~> 0'
 
   spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec"
-  spec.add_development_dependency "guard"
-  spec.add_development_dependency "guard-rspec"
+  spec.add_development_dependency "rake", '~> 10'
+  spec.add_development_dependency "rspec", '~> 2'
+  spec.add_development_dependency "guard", '~> 2'
+  spec.add_development_dependency "guard-rspec", '~> 4'
 end
