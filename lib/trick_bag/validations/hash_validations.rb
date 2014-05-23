@@ -11,7 +11,7 @@ module Validations
       keys = keys.first
     end
 
-    keys.reject { |key| the_hash.keys.include?(key) }
+    keys - the_hash.keys
   end
 
 

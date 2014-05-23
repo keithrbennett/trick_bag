@@ -49,7 +49,7 @@ describe Validations do
       missing_keys = [:foo, :bar]
       begin
         raise_on_missing_keys(my_hash, missing_keys)
-        fail "An exception should have been raised."
+        fail "An exception should have been raised."  # TODO: THis will raise a runtime error.
       rescue => e
         message = e.to_s
         missing_keys.each do |key|
