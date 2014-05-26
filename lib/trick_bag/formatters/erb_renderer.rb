@@ -1,3 +1,5 @@
+require 'ostruct'
+
 module TrickBag
 
 # ERB requires a binding from which it gets its values for substituting
