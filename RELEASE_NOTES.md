@@ -1,3 +1,10 @@
+## v0.44.0
+
+* Fix missing require 'ostruct' in erb_renderer.rb.
+* Simplify implementation of determining missing keys.
+* Rename any?, all?, none? to any_with_object?, etc.
+
+
 ## v0.43.0
 
 * Added any?, all?, none?.
