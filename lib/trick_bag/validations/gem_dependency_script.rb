@@ -37,21 +37,18 @@ module TrickBag
     # we need to convert names like '/Users/kbennett/.rvm/gems/ruby-2.1.0' to 'default'.
     # That's what this script does.
     GEMSET_NAME_SCRIPT = %q{
+gemset_name()
+{
+  RUBY=`rvm current`
+  GEMSET=`rvm gemset name`
 
-
-        gemset_name()
-        {
-          RUBY=`rvm current`
-          GEMSET=`rvm gemset name`
-
-          if [ "x$(echo $GEMSET | grep "${RUBY}$")" = "x" ] ; then
-            NAME=$GEMSET
-          else
-            NAME='default'
-          fi
-          echo $NAME
-        }
-
+  if [ "x$(echo $GEMSET | grep "${RUBY}$")" = "x" ] ; then
+    NAME=$GEMSET
+  else
+    NAME='default'
+  fi
+  echo $NAME
+}
 
 }
 

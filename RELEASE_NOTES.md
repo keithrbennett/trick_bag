@@ -1,3 +1,11 @@
+## v0.45.1
+
+* Fix commit omissions.
+
+## v0.45.0
+
+* Add GemDependencyScript.
+
 ## v0.44.0
 
 * Fix missing require 'ostruct' in erb_renderer.rb.
@@ -30,7 +38,7 @@
 
 * Added CoreTypes.clone_hash_except.
 * Added FileLineReader.to_s.
-
+git
 
 ## v0.38.0
 
