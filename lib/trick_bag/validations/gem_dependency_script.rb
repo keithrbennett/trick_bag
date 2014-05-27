@@ -23,10 +23,42 @@ module TrickBag
 
     DEFAULT_SCRIPT_NAME = 'test_bundle_gems'
 
+    # The 'default' gemset activated by the command 'rvm gemset use default'
+    # will have the name of the active Ruby, so, for example:
+    #
+    # > rvm gemset use default
+    # Using ruby-2.1.0 with gemset default
+    # > rvm gemset name
+    # /Users/kbennett/.rvm/gems/ruby-2.1.0
+    # > rvm current
+    # ruby-2.1.0
+    #
+    # ...so when we get the gemset name to use later to restore the original gemset,
+    # we need to convert names like '/Users/kbennett/.rvm/gems/ruby-2.1.0' to 'default'.
+    # That's what this script does.
+    GEMSET_NAME_SCRIPT = %q{
+
+
+        gemset_name()
+        {
+          RUBY=`rvm current`
+          GEMSET=`rvm gemset name`
+
+          if [ "x$(echo $GEMSET | grep "${RUBY}$")" = "x" ] ; then
+            NAME=$GEMSET
+          else
+            NAME='default'
+          fi
+          echo $NAME
+        }
+
+
+}
+
     def script_for(gem_name, script_name = DEFAULT_SCRIPT_NAME)
       require_command = "require '#{gem_name}'"
 
-      "#!#{ENV['SHELL']}\n" +
+      "#!#{ENV['SHELL']}\n" + GEMSET_NAME_SCRIPT +
 
           [
             "echo This script must be sourced due to rvm constraints, e.g.: . ./#{script_name}",
@@ -35,7 +67,7 @@ module TrickBag
             "echo Pipe output to grep \"^:\" for terser output.",
             "echo If this script aborts prematurely, you may need to manually restore your gemset, e.g.:",
             "echo rvm gemset use default",
-            "export ORIG_GEMSET_NAME=`rvm gemset name`",
+            "export ORIG_GEMSET_NAME=$(gemset_name)",
             "echo : Preserving original gemset name $ORIG_GEMSET_NAME.",
             "export TEMP_GEMSET_NAME=gem_dep_checker_gemset",
             "rvm gemset create $TEMP_GEMSET_NAME",
