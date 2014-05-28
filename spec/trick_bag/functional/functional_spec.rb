@@ -60,9 +60,5 @@ module TrickBag
         expect(TrickBag.all_with_object?(mixed_true_false_funcs, 1)).to be_false
       end
     end
-
-
-
   end
-
 end

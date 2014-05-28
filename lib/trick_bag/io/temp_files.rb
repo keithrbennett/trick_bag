@@ -10,7 +10,7 @@ module TempFiles
     # @param text the text to write to the temporary file
     # @param file_prefix optional prefix for the temporary file's name
     # @yield filespec of the temporary file
-    def self.file_containing(text, file_prefix = '')
+    def file_containing(text, file_prefix = '')
       raise "This method must be called with a code block." unless block_given?
 
       filespec = nil
@@ -24,7 +24,6 @@ module TempFiles
         File.delete filespec if filespec && File.exist?(filespec)
       end
     end
-
   end
 end
 end

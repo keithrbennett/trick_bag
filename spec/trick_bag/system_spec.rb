@@ -22,7 +22,7 @@ module System
       context ".lsof" do
         specify "returns ruby lines" do
           lines = System.lsof
-          has_ruby_line = lines.any_with_object? { |line| /ruby/ === line }
+          has_ruby_line = lines.any? { |line| /ruby/ === line }
           expect(has_ruby_line).to be_true
         end
       end

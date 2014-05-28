@@ -4,7 +4,7 @@ require 'trick_bag/meta/classes'
 module TrickBag
 module Enumerables
 
-# An enumerator Used to provide all combinations of a set of Enumerables.
+# An enumerator used to provide all combinations of a set of Enumerables.
 
 # For example, for blood types [:a, :b, :ab, :o] and rh [:+, :-],
 # provides an enumerator whose 'each' method gives:
