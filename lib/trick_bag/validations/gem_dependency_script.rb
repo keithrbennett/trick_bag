@@ -52,6 +52,7 @@ gemset_name()
 
 }
 
+    # Returns a string containing a shell script that will test the gem (see above for details).
     def script_for(gem_name, script_name = DEFAULT_SCRIPT_NAME)
       require_command = "require '#{gem_name}'"
 
@@ -88,6 +89,8 @@ gemset_name()
     end
 
 
+    # Writes to file a a shell script that will test the gem (see above for details),
+    # and sets the permission to be executable so it can be run as a shell command.
     def write_script_for(gem_name, filespec = DEFAULT_SCRIPT_NAME)
       File.write(filespec, script_for(gem_name, filespec))
       FileUtils.chmod("u=wrx,go=rx", filespec)
