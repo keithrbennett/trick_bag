@@ -19,7 +19,7 @@ module TrickBag
   # run it, otherwise rvm may complain that it is not a login shell.  For example,
   # gem install trick_bag and then, in your gem project root do:
   #
-  # ruby -e "require 'trick_bag'; TrickBag::GemDependencyScript.write_script_for('trick_bag', 'test2')" && . ./test2 | less
+  # ruby -e "require 'trick_bag'; TrickBag::GemDependencyScript.write_script_for('trick_bag', 'test2')" && . ./test2
   module GemDependencyScript
 
     module_function
