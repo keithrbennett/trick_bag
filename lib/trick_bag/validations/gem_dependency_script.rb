@@ -16,7 +16,8 @@ module TrickBag
   # Assumes also that any *gem files in the project root are not needed, and deletes them!
   #
   # Call one of the methods to get the script content, and be sure to source it when you
-  # run it, otherwise rvm may complain that it is not a login shell.  Ex:
+  # run it, otherwise rvm may complain that it is not a login shell.  Ex, gem install trick_bag
+  # and then, in your gem project root do:
   #
   # ruby -e "require 'trick_bag'; TrickBag::GemDependencyScript.write_script_for('trick_bag', 'test2')" && . ./test2 | less
   module GemDependencyScript
