@@ -61,7 +61,6 @@ module Enumerables
                 @object += 1
                 self.data << @object
               end
-              require 'pry'; binding.pry if self.data.is_a?(Fixnum)
             end
           end
         end

@@ -31,13 +31,13 @@ module Classes
 
       unless read_access == :none
         attr_reader(*attrs)
-        send(read_access, *attrs)
+        send(read_access, *attrs) # e.g. results in protected :foo, :bar
       end
 
       unless write_access == :none
         attr_writer(*attrs)
         writers = attrs.map { |attr| "#{attr}=".to_sym }
-        send(write_access, *writers)
+        send(write_access, *writers) # e.g. results in private :foo=, :bar=
       end
     end
 

@@ -1,3 +1,8 @@
+## v0.45.2
+
+* Fix gem dependency versions; remove refs to pry & guard; doc fixes & additions.
+
+
 ## v0.45.1
 
 * Fix commit omissions.

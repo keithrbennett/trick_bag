@@ -54,7 +54,7 @@ module Timing
   # e.g.   benchmark('time to loop 1,000,000 times') { 1_000_000.times { 42 }; 'hi' }
   # outputs the following string:
   #   0.050000   0.000000   0.050000 (  0.042376): time to loop 1,000,000 times
-  #  and returns: 42
+  #  and returns: 'hi'
   #
   # @param caption the text fragment to print after the timing data
   # @param out_stream object responding to << that will get the output string

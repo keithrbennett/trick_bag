@@ -3,7 +3,13 @@ require 'fileutils'
 
 module TrickBag
 
-  # Creates and optionally writes to file a scriopt that will check to see that
+  # NOTE! If the gem you are testing defines a .gemspec file,
+  # then this approach can be eliminated by instead
+  # running the following command in the project root (thank you, Rob Kidd):
+
+  # bundle exec ruby -e "require 'my_gem_name'"
+
+  # Creates and optionally writes to file a script that will check to see that
   # the gemspec/Gemfile includes all necessary gems.
   #
   # Testing this by doing a simple 'require' instead does not test for the
