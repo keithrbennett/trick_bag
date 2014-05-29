@@ -29,6 +29,27 @@ module Validations
     end
   end
 
+
+  # When a gem project has a .gemspec, this uses bundle exec to verify that requiring
+  # that gem name does not result in an error. (An error would occur, for example,
+  # if a gem required by the project gem is not specified as a dependency in
+  # the .gemspec file.
+  #
+  # @return a hash containing the :exit_status (0 = success), output (stdout + stderr),
+  # and the :process_status (Process::Status object).
+  def test_gem_dependency_specs(gem_name)
+    command = %Q{bundle exec ruby -e "require '#{gem_name}'"}
+
+    output, process_status = Open3.capture2e(command)
+
+    output.prepend(command + "\n\n")
+
+    {
+        exit_status: process_status.exitstatus,
+        output: output,
+        process_status: process_status
+    }
+  end
 end
 end
 
