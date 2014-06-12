@@ -4,10 +4,12 @@ require 'fileutils'
 module TrickBag
 
   # NOTE! If the gem you are testing defines a .gemspec file,
-  # then this approach can be eliminated by instead
+  # then this approach may be eliminated by instead
   # running the following command in the project root (thank you, Rob Kidd):
 
   # bundle exec ruby -e "require 'my_gem_name'"
+
+  # (A bundle install will need to have been done with the current configuration.)
 
   # Creates and optionally writes to file a script that will check to see that
   # the gemspec/Gemfile includes all necessary gems.
@@ -25,7 +27,9 @@ module TrickBag
   # run it, otherwise rvm may complain that it is not a login shell.  For example,
   # gem install trick_bag and then, in your gem project root do:
   #
-  # ruby -e "require 'trick_bag'; TrickBag::GemDependencyScript.write_script_for('trick_bag', 'test2')" && . ./test2
+  # ruby -e "require 'trick_bag'; TrickBag::GemDependencyScript.write_script_for('', 'test_gem_dep')" && . ./test_gem_dep
+  #
+  # ...where, of course, you replace 'my_gem' with the name of your gem.
   module GemDependencyScript
 
     module_function
