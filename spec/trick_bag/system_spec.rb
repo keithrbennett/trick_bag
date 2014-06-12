@@ -10,11 +10,11 @@ module System
 
       context "#command_available" do
         specify 'which ls returns true' do
-          expect(System.command_available?('ls')).to be_true
+          expect(System.command_available?('ls')).to eq(true)
         end
 
         specify 'which fsdfiuowqpfeqpxumwfuqiufqpiufpqwmiurqpruiiqwmxrqupruxmqowiruqmpmu returns false' do
-          expect(System.command_available?('fsdfiuowqpfeqpxumwfuqiufqpiufpqwmiurqpruiiqwmxrqupruxmqowiruqmpmu')).to be_false
+          expect(System.command_available?('fsdfiuowqpfeqpxumwfuqiufqpiufpqwmiurqpruiiqwmxrqupruxmqowiruqmpmu')).to eq(false)
         end
       end
 
@@ -23,7 +23,7 @@ module System
         specify "returns ruby lines" do
           lines = System.lsof
           has_ruby_line = lines.any? { |line| /ruby/ === line }
-          expect(has_ruby_line).to be_true
+          expect(has_ruby_line).to eq(true)
         end
       end
     end

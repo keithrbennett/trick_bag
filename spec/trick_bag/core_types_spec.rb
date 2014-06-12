@@ -18,7 +18,7 @@ module TrickBag
       keys_to_delete =  [:b, :d]
       new_h = clone_hash_except(h, keys_to_delete)
       keys_to_delete.each do |key|
-        expect(new_h.has_key?(key)).to be_false
+        expect(new_h.has_key?(key)).to eq(false)
       end
     end
 

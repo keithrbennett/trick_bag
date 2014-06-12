@@ -38,7 +38,7 @@ nbc.com
 
 
     it "should create a temporary file" do
-      expect(File.exist?(@tempfile.path)).to be_true
+      expect(File.exist?(@tempfile.path)).to eq(true)
     end
 
     it "should produce an array" do
@@ -46,15 +46,15 @@ nbc.com
     end
 
     it "should produce a nonempty array" do
-      expect(subject.to_a.empty?).to be_false
+      expect(subject.to_a.empty?).to eq(false)
     end
 
     it "should produce a nonempty array containing 'abc.com'" do
-      expect(subject.to_a.include?('abc.com')).to be_true
+      expect(subject.to_a).to include('abc.com')
     end
 
     it "should produce an array without blank lines" do
-      expect(subject.to_a.include?('')).to be_false
+      expect(subject.to_a).not_to include('')
     end
 
     it "should produce an array without beginning comment characters" do

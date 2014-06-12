@@ -17,14 +17,14 @@ describe TempFiles do
     TempFiles.file_containing('foo') do |fspec|
       filespec = fspec
     end
-    expect(File.exist?(filespec)).to be_false
+    expect(File.exist?(filespec)).to eq(false)
   end
 
   it 'uses the prefix in the filespec' do
     prefix = 'jsiapewrqms'
     TempFiles.file_containing('', prefix) do |filespec|
       filename = File.split(filespec).last
-      expect(filename.start_with?(prefix)).to be_true
+      expect(filename.start_with?(prefix)).to eq(true)
     end
   end
 end

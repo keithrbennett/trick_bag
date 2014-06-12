@@ -69,7 +69,7 @@ describe Formatters do
       expect(s).to eq('2000-01-02_15-44-37')
       #regex = /^\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d$/
       #puts s
-      #expect(regex === s).to be_true
+      #expect(regex === s).to eq(true)
       #
       #
     end

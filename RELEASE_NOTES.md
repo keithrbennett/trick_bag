@@ -1,3 +1,8 @@
+## v0.45.3
+
+* Upgrade to RSpec 3.0.  Other minor improvements.
+
+
 ## v0.45.2
 
 * Fix gem dependency versions; remove refs to pry & guard; doc fixes & additions.
@@ -7,9 +12,11 @@
 
 * Fix commit omissions.
 
+
 ## v0.45.0
 
 * Add GemDependencyScript.
+
 
 ## v0.44.0
 
@@ -44,6 +51,7 @@
 * Added CoreTypes.clone_hash_except.
 * Added FileLineReader.to_s.
 git
+
 
 ## v0.38.0
 

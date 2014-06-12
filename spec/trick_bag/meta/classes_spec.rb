@@ -14,15 +14,15 @@ describe Classes do
 context 'class?' do
 
   it 'should recognize String as a class' do
-    expect(Classes.class?('String')).to be_true
+    expect(Classes.class?('String')).to eq(true)
   end
 
   it 'should recognize that RUBY_PLATFORM is not a class even though it is a defined constant' do
-    expect(Classes.class?('RUBY_PLATFORM')).to be_false
+    expect(Classes.class?('RUBY_PLATFORM')).to eq(false)
   end
 
   it 'should recognize a nonexistent constant as not being a class' do
-    expect(Classes.class?('Afjkdiurqpweruwiqopurqpweriuqewprzvxcvzxcvzxvzvzvzvcxzvzv')).to be_false
+    expect(Classes.class?('Afjkdiurqpweruwiqopurqpweriuqewprzvxcvzxcvzxvzvzvzvcxzvzv')).to eq(false)
   end
 end
 
@@ -56,7 +56,7 @@ end
 
     it "should be a private method" do
       fn_create_class.()
-      expect(ClassPatchTestClass.private_method_defined?(:foo)).to be_true
+      expect(ClassPatchTestClass.private_method_defined?(:foo)).to eq(true)
     end
   end
 
@@ -74,7 +74,7 @@ end
 
     it "should be a private method" do
       fn_create_class.()
-      expect(ClassPatchTestClass.private_method_defined?(:foo=)).to be_true
+      expect(ClassPatchTestClass.private_method_defined?(:foo=)).to eq(true)
     end
   end
 
@@ -99,8 +99,8 @@ end
 
     it "should be private reader and writer" do
       fn_create_class.()
-      expect(ClassPatchTestClass.private_method_defined?(:foo)).to be_true
-      expect(ClassPatchTestClass.private_method_defined?(:foo=)).to be_true
+      expect(ClassPatchTestClass.private_method_defined?(:foo)).to eq(true)
+      expect(ClassPatchTestClass.private_method_defined?(:foo=)).to eq(true)
     end
   end
 
@@ -126,12 +126,12 @@ end
 
     it "should be a public reader" do
       fn_create_class.()
-      expect(ClassPatchTestClass.public_method_defined?(:foo)).to be_true
+      expect(ClassPatchTestClass.public_method_defined?(:foo)).to eq(true)
     end
 
     it "should be a private writer" do
       fn_create_class.()
-      expect(ClassPatchTestClass.private_method_defined?(:foo=)).to be_true
+      expect(ClassPatchTestClass.private_method_defined?(:foo=)).to eq(true)
     end
   end
 
@@ -147,14 +147,14 @@ end
 
     it "should be a private reader" do
       fn_create_class.()
-      expect(ClassPatchTestClass.private_method_defined?(:foo)).to be_true
+      expect(ClassPatchTestClass.private_method_defined?(:foo)).to eq(true)
     end
 
     it 'should not contain a writer at all' do
       fn_create_class.()
-      expect(ClassPatchTestClass.private_method_defined?(:foo=)).to be_false
-      expect(ClassPatchTestClass.protected_method_defined?(:foo=)).to be_false
-      expect(ClassPatchTestClass.public_method_defined?(:foo=)).to be_false
+      expect(ClassPatchTestClass.private_method_defined?(:foo=)).to eq(false)
+      expect(ClassPatchTestClass.protected_method_defined?(:foo=)).to eq(false)
+      expect(ClassPatchTestClass.public_method_defined?(:foo=)).to eq(false)
     end
   end
 end

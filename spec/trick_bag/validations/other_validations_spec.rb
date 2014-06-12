@@ -21,8 +21,8 @@ module TrickBag
         raise_on_invalid_value('foo', [:bar, :baz], 'manufacturer')
         fail "Should have raised an error"
       rescue => error
-        expect(/manufacturer/ === error.message).to be_true
-        expect(/:bar/ === error.message).to be_true
+        expect(error.message).to match(/manufacturer/)
+        expect(error.message).to match(/:bar/)
         expect(error.message).to eq("Invalid manufacturer 'foo'; must be one of: [:bar, :baz].")
       end
     end
