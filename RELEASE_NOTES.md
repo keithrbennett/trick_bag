@@ -1,3 +1,8 @@
+## v0.47.0
+
+* Remove array_as_multiline_string; it's too similar to array.join("\n").
+
+
 ## v0.46.0
 
 * Add array_diff and array_as_multiline_string to Formatters.
