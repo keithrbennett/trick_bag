@@ -1,4 +1,5 @@
 require 'date'
+require 'diffy'
 
 module TrickBag
 module Formatters
@@ -119,6 +120,26 @@ module Formatters
   # Note: The 'os' gem can be used to determine os.
   def dos2unix!(string, strategy = :remove_all_cr)
     string.replace(dos2unix(string, strategy))
+  end
+
+
+  # Returns a string representation of the array as would be output by puts,
+  # one line per element.
+  def array_as_multiline_string(array)
+    sio = StringIO.new
+    sio.puts(array)
+    sio.string
+  end
+
+
+  # Shows a visual diff of 2 arrays by comparing the string representations
+  # of the arrays with one element per line.
+  # @param format can be any valid Diffy option, e.g. :color
+  #     see https://github.com/samg/diffy/blob/master/lib/diffy/format.rb
+  def array_diff(array1, array2, format = :text)
+    string1 = array_as_multiline_string(array1)
+    string2 = array_as_multiline_string(array2)
+    Diffy::Diff.new(string1, string2).to_s(format)
   end
 
 end

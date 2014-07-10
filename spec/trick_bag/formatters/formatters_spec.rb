@@ -122,6 +122,33 @@ describe Formatters do
 
       end
     end
+
+
+    context 'array_as_multiline_string' do
+      specify 'string representation is correct when array is NOT empty' do
+        array = [1, 2, 3]
+        expect(Formatters.array_as_multiline_string(array)).to eq("1\n2\n3\n")
+      end
+
+      specify 'string representation is correct when array is empty' do
+        array = []
+        expect(Formatters.array_as_multiline_string(array)).to eq("")
+      end
+    end
+
+
+    context 'array_diff' do
+      specify 'text is correct' do
+        a1 = [1, 2, 3]
+        a2 = [   2, 3, 4]
+        actual_text = Formatters.array_diff(a1, a2, :color)
+        expected_text = "-1\n 2\n 3\n+4\n"
+        expect(actual_text).to eq(expected_text)
+        puts
+        puts actual_text
+        puts
+      end
+    end
   end
 
 end

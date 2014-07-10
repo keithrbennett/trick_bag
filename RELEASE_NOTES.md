@@ -1,3 +1,8 @@
+## v0.46.0
+
+* Add array_diff and array_as_multiline_string to Formatters.
+
+
 ## v0.45.3
 
 * Upgrade to RSpec 3.0.  Other minor improvements.
