@@ -1,3 +1,8 @@
+## v0.48.0
+
+* Add XML.simple_hash_from_node_set.
+
+
 ## v0.47.0
 
 * Remove array_as_multiline_string; it's too similar to array.join("\n").
