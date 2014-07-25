@@ -1,7 +1,6 @@
 ## v0.48.0
 
-* Add XML.simple_hash_from_node_set.
-
+* Add TrickBag::Numeric::MultiCounter#total_count.
 
 ## v0.47.0
 

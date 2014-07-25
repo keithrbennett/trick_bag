@@ -40,6 +40,11 @@ class MultiCounter
     keys.include?(key)
   end
 
+  # Returns the total of all counts.
+  def total_count
+    @counts.values.inject(0, &:+)
+  end
+
   # Creates a hash whose keys are this counter's keys, and whose values are
   # their corresponding values.
   def to_hash

@@ -23,6 +23,12 @@ module Numeric
       expect(subject.keys.sort).to eq(keys.sort)
     end
 
+    specify 'total_count is correct' do
+      results = %w(Open New Open Closed Open New Closed)
+      results.each { |r| subject.increment(r) }
+      expect(s˚ubject.total_count).to eq(7)
+    end
   end
 end
 end
+
