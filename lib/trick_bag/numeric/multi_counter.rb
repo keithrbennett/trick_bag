@@ -15,7 +15,7 @@ class MultiCounter
     @counts = Hash.new(0)
   end
 
-  def self.from_array(values, name = '')
+  def self.from_enumerable(values, name = '')
     m_counter = MultiCounter.new(name)
     values.each { |value| m_counter.increment(value) }
     m_counter
@@ -74,3 +74,48 @@ class MultiCounter
 end
 end
 end
+
+
+=begin
+
+Here is a sample script that exercises some of this class' features:
+
+#!/usr/bin/env ruby
+
+require 'trick_bag'
+require 'awesome_print'
+
+data = %w(Open New Open Closed Open New Closed Open Open Open)
+m_counter = TrickBag::Numeric::MultiCounter.from_enumerable(data, 'Status for Issue #123')
+puts "\nMultiCounter hash:"
+ap m_counter.to_hash
+
+puts "\nNumber Open:"
+puts m_counter['Open']
+
+pc_totals = m_counter.percent_of_total_hash
+puts "\nPercents of Total:"
+ap pc_totals
+
+
+# Output is:
+#
+# MultiCounter hash:
+# {
+#       "Open" => 6,
+#        "New" => 2,
+#     "Closed" => 2
+# }
+#
+# Number Open:
+# 6
+#
+# Percents of Total:
+# {
+#       "Open" => 0.6,
+#        "New" => 0.2,
+#     "Closed" => 0.2
+# }
+
+=end
+

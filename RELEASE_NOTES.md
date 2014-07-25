@@ -1,6 +1,12 @@
+## v0.49.0
+
+* Corrected name from from_array to from_enumerable.
+
+
 ## v0.48.0
 
-* Add TrickBag::Numeric::MultiCounter#total_count.
+* Add TrickBag::Numeric::MultiCounter#total_count and #percent_of_total_hash.
+
 
 ## v0.47.0
 

@@ -31,13 +31,13 @@ module Numeric
     end
 
     specify 'creating from an array works correctly' do
-      m_counter = MultiCounter.from_array(sample_data)
+      m_counter = MultiCounter.from_enumerable(sample_data)
       expect(m_counter.total_count).to eq(10)
       expect(m_counter['Open']).to eq(6)
     end
 
     specify 'percent_of_total_hash is correctly calculated' do
-      ptotal_hash = MultiCounter.from_array(sample_data).percent_of_total_hash
+      ptotal_hash = MultiCounter.from_enumerable(sample_data).percent_of_total_hash
       expect(ptotal_hash['Open']).to eq(0.6)
       expect(ptotal_hash['Closed']).to eq(0.2)
       expect(ptotal_hash['New']).to eq(0.2)
