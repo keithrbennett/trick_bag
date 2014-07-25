@@ -8,6 +8,8 @@ module Numeric
 
     subject { MultiCounter.new }
 
+    let(:sample_data) { %w(Open New Open Closed Open New Closed Open Open Open) }
+
     it "should instantiate" do
       expect(-> { subject }).not_to raise_error
     end
@@ -24,9 +26,21 @@ module Numeric
     end
 
     specify 'total_count is correct' do
-      results = %w(Open New Open Closed Open New Closed)
-      results.each { |r| subject.increment(r) }
-      expect(s˚ubject.total_count).to eq(7)
+      sample_data.each { |datum| subject.increment(datum) }
+      expect(subject.total_count).to eq(10)
+    end
+
+    specify 'creating from an array works correctly' do
+      m_counter = MultiCounter.from_array(sample_data)
+      expect(m_counter.total_count).to eq(10)
+      expect(m_counter['Open']).to eq(6)
+    end
+
+    specify 'percent_of_total_hash is correctly calculated' do
+      ptotal_hash = MultiCounter.from_array(sample_data).percent_of_total_hash
+      expect(ptotal_hash['Open']).to eq(0.6)
+      expect(ptotal_hash['Closed']).to eq(0.2)
+      expect(ptotal_hash['New']).to eq(0.2)
     end
   end
 end

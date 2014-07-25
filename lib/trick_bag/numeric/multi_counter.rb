@@ -15,6 +15,12 @@ class MultiCounter
     @counts = Hash.new(0)
   end
 
+  def self.from_array(values, name = '')
+    m_counter = MultiCounter.new(name)
+    values.each { |value| m_counter.increment(value) }
+    m_counter
+  end
+
   # Adds keys in the passed enumerable to this counter.
   def add_keys(keys)
     keys.each { |key| @counts[key] = 0 }
@@ -43,6 +49,15 @@ class MultiCounter
   # Returns the total of all counts.
   def total_count
     @counts.values.inject(0, &:+)
+  end
+
+  # Returns a hash whose keys are the multicounter's keys and whose values
+  # are the percent of total of the values corresponding to those keys.
+  def percent_of_total_hash
+    total = total_count
+    keys.each_with_object({}) do |key, ptotal_hash|
+      ptotal_hash[key] = Float(self[key]) / total
+    end
   end
 
   # Creates a hash whose keys are this counter's keys, and whose values are
