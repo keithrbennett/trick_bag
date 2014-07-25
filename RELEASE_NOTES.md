@@ -1,3 +1,8 @@
+## v0.50.0
+
+* On MultiCounter, fixed percent_of_total_hash, added fraction_of_total_hash.
+
+
 ## v0.49.0
 
 * Corrected name from from_array to from_enumerable.

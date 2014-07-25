@@ -38,6 +38,13 @@ module Numeric
 
     specify 'percent_of_total_hash is correctly calculated' do
       ptotal_hash = MultiCounter.from_enumerable(sample_data).percent_of_total_hash
+      expect(ptotal_hash['Open']).to eq(60.0)
+      expect(ptotal_hash['Closed']).to eq(20.0)
+      expect(ptotal_hash['New']).to eq(20.0)
+    end
+
+    specify 'fraction_of_total_hash is correctly calculated' do
+      ptotal_hash = MultiCounter.from_enumerable(sample_data).fraction_of_total_hash
       expect(ptotal_hash['Open']).to eq(0.6)
       expect(ptotal_hash['Closed']).to eq(0.2)
       expect(ptotal_hash['New']).to eq(0.2)

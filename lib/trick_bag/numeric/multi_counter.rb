@@ -15,6 +15,7 @@ class MultiCounter
     @counts = Hash.new(0)
   end
 
+  # Creates an instance and iterates over the enumberable, processing all its items.
   def self.from_enumerable(values, name = '')
     m_counter = MultiCounter.new(name)
     values.each { |value| m_counter.increment(value) }
@@ -51,13 +52,28 @@ class MultiCounter
     @counts.values.inject(0, &:+)
   end
 
+  # Private internal method for use by percent_of_total_hash
+  # and fraction_of_total_hash.
+  # @param mode :percent or :fraction
+  def of_total_hash(mode = :percent)
+    raise "bad mode: #{mode}" unless [:percent, :fraction].include?(mode)
+    total = total_count
+    keys.each_with_object({}) do |key, ptotal_hash|
+      value = Float(self[key]) / total
+      value *= 100 if mode == :percent
+      ptotal_hash[key] = value
+    end
+  end; private :of_total_hash
+
   # Returns a hash whose keys are the multicounter's keys and whose values
   # are the percent of total of the values corresponding to those keys.
   def percent_of_total_hash
-    total = total_count
-    keys.each_with_object({}) do |key, ptotal_hash|
-      ptotal_hash[key] = Float(self[key]) / total
-    end
+    of_total_hash(:percent)
+  end
+  # Returns a hash whose keys are the multicounter's keys and whose values
+  # are the fraction of total of the values corresponding to those keys.
+  def fraction_of_total_hash
+    of_total_hash(:fraction)
   end
 
   # Creates a hash whose keys are this counter's keys, and whose values are
