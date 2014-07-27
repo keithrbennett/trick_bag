@@ -28,11 +28,17 @@ module Enumerables
         end
 
         e = BufferedEnumerable.create_with_lambdas(4, fetcher, fetch_notifier).to_enum
-        (1..10).each do |n|
-          expect(e.next).to eq(n)
-        end
+        (1..10).each { |n| expect(e.next).to eq(n) }
         expect(chunk_fetch_calls).to eq(3)
         expect(object_count).to eq(12)
+      end
+
+      specify 'create_with_lambdas can be called without specifying a fetch_notifier' do
+        be = nil
+        f1 = -> { be = BufferedEnumerable.create_with_lambdas(4, fetcher).to_enum }
+        expect(f1).not_to raise_error
+        f2 = -> { (1..10).each { be.next } }
+        expect(f2).not_to raise_error
       end
     end
 

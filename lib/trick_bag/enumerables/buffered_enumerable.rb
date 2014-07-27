@@ -41,7 +41,7 @@ class BufferedEnumerable
   # @param chunk_size the maximum number of objects to be buffered
   # @param fetcher lambda to be called to fetch to fill the buffer
   # @param fetch_notifier lambda to be called to when a fetch is done
-  def self.create_with_lambdas(chunk_size, fetcher, fetch_notifier)
+  def self.create_with_lambdas(chunk_size, fetcher, fetch_notifier = nil)
     instance = self.new(chunk_size)
     instance.fetcher = fetcher
     instance.fetch_notifier = fetch_notifier
