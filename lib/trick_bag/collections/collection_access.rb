@@ -6,16 +6,44 @@ module CollectionAccess
 
   module_function
 
-  def access(collection, string, separator = '.')
-    keys = string.split(separator)
-    puts "keys:"
-    puts keys
-    keys.inject(collection) do |object, key|
-      key = key.to_i if object.is_a?(Array)
-      object[key]
+  # Accesses a collection with a single string that represents n levels of depth.
+  # See the spec file for examples, but here's one:
+  #
+  # h = { 'h' => ['a', 'b'] }
+  # CollectionAccess.access(h, 'h.1') => 'b'
+  #
+  # If an error is raised while trying to access the value with a given key,
+  # an error will be raised showing that error plus the context of which
+  # key failed, as in:
+  #
+  # Error occurred processing key [x.1] in [x.1.2]: undefined method `[]' for nil:NilClass
+  #
+  # @param the collection to access
+  # @param key_string the string representing the keys to use
+  # @separator the string to use to separate the
+  def access(collection, key_string, separator = '.')
+
+    keys = key_string.split(separator)
+    return_object = collection
+
+    keys.each_with_index do |key, index|
+      key = key.to_i if return_object.kind_of?(Array)
+      begin
+        return_object = return_object[key]
+      rescue => e
+        this_key = keys[0..index].join(separator)
+        raise "Error occurred processing key [#{this_key}] in [#{key_string}]: #{e}"
+      end
     end
+    return_object
+  end
+
+
+  # Like access, but returns a lambda that can be used to access a given collection.
+  # Since lambdas can be used to
+  def accessor(collection, separator = '.')
+    ->(key_string) { access(collection, key_string, separator) }
   end
 
 end
 end
-
