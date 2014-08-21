@@ -40,7 +40,17 @@ module CollectionAccess
 
 
   # Like access, but returns a lambda that can be used to access a given collection.
-  # Since lambdas can be used to
+  # Since lambdas can be called with the subscript operator,
+  # using it can resemble regular hash or array access.
+  # If you don't like this you can use '.call' or '.()' instead.
+  #
+  # An example:
+  #
+  # h = { 'h' => ['a', 'b'] }
+  # accessor = CollectionAccess.accessor(h)
+  # accessor['h.1']    # => 'b'
+  # or
+  # accessor.('h.1')    # => 'b'
   def accessor(collection, separator = '.')
     ->(key_string) { access(collection, key_string, separator) }
   end

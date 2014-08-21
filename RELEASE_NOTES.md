@@ -1,3 +1,8 @@
+## v0.51.0
+
+* Add CollectionAccess access and accessor methods.
+
+
 ## v0.50.0
 
 * On MultiCounter, fixed percent_of_total_hash, added fraction_of_total_hash.
