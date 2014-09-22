@@ -51,22 +51,25 @@ module TrickBag
     end
 
 
-    context '#match_hash' do
+    context 'RegexStringListAnalyzer' do
 
       expected_hash =  { /a/ => %w(apple  mango), /m/ => ['mango'], /z/ => [] }
 
-      it 'should return a correct hash' do
+      subject do
         strings = %w(apple  mango)
-        actual = match_hash(regexes, strings)
-        expect(actual).to eq(expected_hash)
+        TrickBag::Validations::RegexStringListAnalyzer.new(regexes, strings)
+      end
+
+      it 'should return a correct hash' do
+        expect(subject.to_h).to eq(expected_hash)
       end
 
       it 'should return the correct array of NONmatches' do
-        expect(regexes_without_matches(expected_hash)).to eq([/z/])
+        expect(subject.regexes_without_matches).to eq([/z/])
       end
 
       it 'should return the correct array of matches' do
-        expect(regexes_with_matches(expected_hash)).to eq([/a/, /m/])
+        expect(subject.regexes_with_matches).to eq([/a/, /m/])
       end
 
     end
