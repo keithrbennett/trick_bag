@@ -49,6 +49,27 @@ module TrickBag
       end
 
     end
+
+
+    context '#match_hash' do
+
+      expected_hash =  { /a/ => %w(apple  mango), /m/ => ['mango'], /z/ => [] }
+
+      it 'should return a correct hash' do
+        strings = %w(apple  mango)
+        actual = match_hash(regexes, strings)
+        expect(actual).to eq(expected_hash)
+      end
+
+      it 'should return the correct array of NONmatches' do
+        expect(regexes_without_matches(expected_hash)).to eq([/z/])
+      end
+
+      it 'should return the correct array of matches' do
+        expect(regexes_with_matches(expected_hash)).to eq([/a/, /m/])
+      end
+
+    end
   end
 end
 

@@ -27,5 +27,36 @@ module Validations
     regexes.none? { |regex| regex === string }
   end
 
+
+  # Returns a hash whose keys are the regexes and values are arrays of strings
+  # in the passed list that match the regex.  Note that if a string matches
+  # multiple regexes, it will be added to the arrays of all the regexes it matched.
+  def match_hash(regexes, strings)
+    regex_strings_hash = regexes.each_with_object({}) do |regex, match_hash|
+      match_hash[regex] = []
+    end
+    strings.each do |string|
+      regexes_matched = regexes.select { |regex| regex === string }
+      regexes_matched.each do |regex_matched|
+        regex_strings_hash[regex_matched] << string
+      end
+    end
+    regex_strings_hash
+  end
+
+
+  # Takes a match hash returned by the match_hash method above,
+  # and returns the regexes for which no matches were found.
+  def regexes_without_matches(match_hash)
+    match_hash.keys.select { |key| match_hash[key].empty? }
+  end
+
+
+  # Takes a match hash returned by the match_hash method above,
+  # and returns the regexes for which matches were found.
+  def regexes_with_matches(match_hash)
+    match_hash.keys.reject { |key| match_hash[key].empty? }
+  end
+
 end
 end
