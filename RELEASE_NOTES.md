@@ -1,3 +1,8 @@
+## v0.52.0
+
+* Added RegexValidations.
+
+
 ## v0.51.0
 
 * Add CollectionAccess access and accessor methods.

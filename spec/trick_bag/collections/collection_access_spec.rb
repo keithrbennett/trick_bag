@@ -17,11 +17,13 @@ describe CollectionAccess do
 
     it 'works with 2 keys' do
       h = { 'a' => { 'b' => 234 }}
+      # instead of h['a']['b']:
       expect(CollectionAccess.access(h, 'a.b')).to eq(234)
     end
 
     it 'works with 3 keys' do
       h = { 'a' => { 'bb' => { 'ccc' => 345 }}}
+      # instead of h['a']['bb']['ccc']:
       expect(CollectionAccess.access(h, 'a.bb.ccc')).to eq(345)
     end
 
