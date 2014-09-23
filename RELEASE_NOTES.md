@@ -1,3 +1,8 @@
+## v0.53.0
+
+* Added RegexStringListAnalyzer.
+
+
 ## v0.52.0
 
 * Added RegexValidations.
