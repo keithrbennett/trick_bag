@@ -72,6 +72,13 @@ module TrickBag
         expect(subject.regexes_with_matches).to eq([/a/, /m/])
       end
 
+      it 'should return the correct array of matches as strings' do
+        expect(subject.regexes_with_matches_as_strings).to eq(%w(/a/  /m/))
+      end
+
+      it 'should return the correct array of NONmatches as strings' do
+        expect(subject.regexes_without_matches_as_strings).to eq(%w(/z/))
+      end
     end
   end
 end

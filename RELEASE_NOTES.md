@@ -1,3 +1,8 @@
+## v0.54.0
+
+* Added RegexStringListAnalyzer '*_as_strings' methods.
+
+
 ## v0.53.0
 
 * Added RegexStringListAnalyzer.

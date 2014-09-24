@@ -69,6 +69,22 @@ module Validations
     def regexes_with_matches
       regex_strings_hash.keys.reject { |key| regex_strings_hash[key].empty? }
     end
+
+
+    # Takes a match hash returned by the match_hash method above,
+    # and returns string representations of the regexes
+    # for which no matches were found.
+    def regexes_without_matches_as_strings
+      regexes_without_matches.map(&:inspect)
+    end
+
+
+    # Takes a match hash returned by the match_hash method above,
+    # and returns string representations of the regexes
+    # for which matches were found.
+    def regexes_with_matches_as_strings
+      regexes_with_matches.map(&:inspect)
+    end
   end
 
 end
