@@ -1,3 +1,8 @@
+## v0.55.0
+
+* Version confusion; this should have been the "real" 0.54.0.
+
+
 ## v0.54.0
 
 * Added RegexStringListAnalyzer '*_as_strings' methods.
