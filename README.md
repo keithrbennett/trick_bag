@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/keithrbennett/trick_bag.svg?branch=master)](https://travis-ci.org/keithrbennett/trick_bag)
+
 # TrickBag
 
 This gem is a collection of useful classes and modules for Ruby development.
