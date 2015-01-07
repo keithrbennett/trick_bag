@@ -7,11 +7,18 @@ module TrickBag
   describe Timing do
 
     context '.retry_until_true_or_timeout' do
-      it 'returns when the predicate returns true' do
+      it 'returns true when the predicate returns true' do
         count = 0
         predicate = ->{ count += 1; count == 3 }
-        Timing.retry_until_true_or_timeout(predicate, 0, 1, StringIO.new)
+        return_value = Timing.retry_until_true_or_timeout(predicate, 0, 1, StringIO.new)
+        expect(return_value).to be(true)
         expect(count).to eq(3)
+      end
+
+      it 'returns false when the predicate fails to return true and a timeout occurs' do
+        predicate = -> { false }
+        return_value = Timing.retry_until_true_or_timeout(predicate, 0, 0.1, StringIO.new)
+        expect(return_value).to be(false)
       end
     end
 
