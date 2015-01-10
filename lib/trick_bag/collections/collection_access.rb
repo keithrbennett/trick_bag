@@ -6,6 +6,7 @@ module CollectionAccess
 
   module_function
 
+
   # Accesses a collection with a single string that represents n levels of depth.
   # See the spec file for examples, but here's one:
   #
@@ -23,11 +24,27 @@ module CollectionAccess
   # @separator the string to use to separate the
   def access(collection, key_string, separator = '.')
 
+    is_number_string = ->(s) do
+      begin
+        Integer(s)
+        true
+      rescue
+        false
+      end
+    end
+
     keys = key_string.split(separator)
     return_object = collection
 
     keys.each_with_index do |key, index|
-      key = key.to_i if return_object.kind_of?(Array)
+
+      if return_object.kind_of?(Array)
+        unless is_number_string.(key)
+          raise "Key is not a number string: #{key}"
+        end
+        key = key.to_i
+      end
+
       begin
         return_object = return_object[key]
       rescue => e
