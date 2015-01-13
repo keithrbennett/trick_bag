@@ -191,6 +191,31 @@ module Numeric
     end
   end
 
+
+  context 'binary operators' do
+    specify '3 & 2 => 2' do
+      expect(Bitmap.from_number(3) & 2).to eq(2)
+    end
+
+    specify '3 | 2 => 3' do
+      expect(Bitmap.from_number(3) | 2).to eq(3)
+    end
+
+    specify '3 ^ 2 => 1' do
+      expect(Bitmap.from_number(3) ^ 2).to eq(1)
+    end
+
+  end
+
+  context 'hash, ==' do
+    specify 'instances created with the same value are ==' do
+      expect(Bitmap.from_number(1234)).to eq(Bitmap.from_number(1234))
+    end
+
+    specify 'instances created with the same value have the same hash' do
+      expect(Bitmap.from_number(1234).hash).to eq(Bitmap.from_number(1234).hash)
+    end
+  end
   end
 end
 

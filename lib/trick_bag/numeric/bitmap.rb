@@ -1,3 +1,5 @@
+require 'forwardable'
+
 module TrickBag
 module Numeric
 
@@ -9,8 +11,14 @@ module Numeric
 # to test bits and convert to other formats.
 class Bitmap
 
+  extend Forwardable
+
   # This is the internal representation of the bitmap value:
   attr_reader :number
+
+  [:&, :|, :^, :hash, :==].each do |method_name|
+    def_delegator :@number, method_name
+  end
 
   def number=(new_number)
     self.assert_nonnegative(new_number)
@@ -164,8 +172,8 @@ class Bitmap
   end
 
 
-  def to_binary_string
-    self.class.number_to_binary_string(number)
+  def to_binary_string(min_length = 0)
+    self.class.number_to_binary_string(number, min_length)
   end
 
   def to_value_array
@@ -200,14 +208,6 @@ class Bitmap
     self.class.assert_nonnegative(number)
     @number = number
   end
-
-  def &(bit)
-    unless bit % 2 == 0
-      raise ArgumentError.new("Bit was #{bit} but must be a multiple of 2.")
-    end
-    @number & bit
-  end
-
 end
 end
 end
