@@ -189,21 +189,6 @@ class Bitmap
   end
 
 
-  def on?(n)
-
-  end
-
-  def off?(n)
-
-  end
-
-  # @return the number of bits in the string; assumes that the string's
-  #         chars are all 1 byte in length, as in Encoding::ASCII_8BIT.
-  def self.bit_count(string)
-    string.size * 8
-  end; private_class_method :new, :bit_count
-
-
   def initialize(number)
     self.class.assert_nonnegative(number)
     @number = number
