@@ -16,7 +16,7 @@ class Bitmap
   # This is the internal representation of the bitmap value:
   attr_reader :number
 
-  [:&, :|, :^, :hash, :==].each do |method_name|
+  [:&, :|, :^, :hash].each do |method_name|
     def_delegator :@number, method_name
   end
 
@@ -192,6 +192,10 @@ class Bitmap
   def initialize(number)
     self.class.assert_nonnegative(number)
     @number = number
+  end
+
+  def ==(other)
+    other.is_a?(self.class) && other.number == self.number
   end
 end
 end
