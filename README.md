@@ -23,7 +23,6 @@ Or install it yourself as:
 
 See the unit tests in the spec directory tree for usage examples.
 
-TODO: Write usage instructions here
 
 ## Contributing
 

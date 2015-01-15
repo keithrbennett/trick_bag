@@ -1,3 +1,8 @@
+## v0.56.0
+
+* Added Bitmap class/support.
+
+
 ## v0.55.0
 
 * Version confusion; this should have been the "real" 0.54.0.
