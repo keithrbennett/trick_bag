@@ -212,6 +212,10 @@ module Numeric
       expect(Bitmap.from_number(1234)).to eq(Bitmap.from_number(1234))
     end
 
+    specify 'instances created with different values are !=' do
+      expect(Bitmap.from_number(1234)).to_not eq(Bitmap.from_number(5678))
+    end
+
     specify 'instances created with the same value have the same hash' do
       expect(Bitmap.from_number(1234).hash).to eq(Bitmap.from_number(1234).hash)
     end
