@@ -6,7 +6,7 @@ module Numeric
 # of a bitmap: number, binary encoded string, array, and sparse array.
 #
 # Where an array is used to represent bits, the first element (#0) will be the
-# low (1) bit and the last bit will be the high bit.
+# high bit and the last element will be the low (1) bit.
 module BitMapping
 
   module_function

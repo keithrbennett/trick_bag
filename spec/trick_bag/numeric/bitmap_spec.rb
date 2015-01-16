@@ -29,7 +29,7 @@ describe Bitmap do
     end
 
     specify 'from_bit_array' do
-      expect(Bitmap.from_bit_array([1, 0, 0, 1]).number).to eq(9)
+      expect(Bitmap.from_bit_array([1, 1, 0, 1]).number).to eq(13)
     end
 
     specify 'from_set_bit_position_array' do
