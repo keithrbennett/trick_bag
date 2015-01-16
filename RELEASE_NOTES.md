@@ -1,3 +1,8 @@
+## v0.57.0
+
+* Removed most class methods from Bitmap and put them in new BitMapping module.
+
+
 ## v0.56.0
 
 * Added Bitmap class/support.
