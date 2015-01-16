@@ -24,8 +24,8 @@ describe Bitmap do
       expect(Bitmap.from_binary_string("\x01\x00").number).to eq(256)
     end
 
-    specify 'from_value_array' do
-      expect(Bitmap.from_value_array([8, 0, 0, 1]).number).to eq(9)
+    specify 'from_place_value_array' do
+      expect(Bitmap.from_place_value_array([8, 0, 0, 1]).number).to eq(9)
     end
 
     specify 'from_bit_array' do
@@ -45,10 +45,9 @@ describe Bitmap do
       expect(bitmap.to_binary_string).to eq("\x01\x02")
     end
 
-    specify 'to_value_array' do
+    specify 'to_place_value_array' do
       bitmap = Bitmap.from_number(258)
-      # expect(bitmap.to_value_array).to eq([0, 2, 0, 0, 0, 0, 0, 0, 256])
-      expect(bitmap.to_value_array).to eq([256, 0, 0, 0, 0, 0, 0, 2, 0])
+      expect(bitmap.to_place_value_array).to eq([256, 0, 0, 0, 0, 0, 0, 2, 0])
     end
 
     specify 'to_bit_array' do
@@ -75,7 +74,6 @@ describe Bitmap do
     specify '3 ^ 2 => 1' do
       expect(Bitmap.from_number(3) ^ 2).to eq(1)
     end
-
   end
 
   context 'hash, ==' do
@@ -94,5 +92,3 @@ describe Bitmap do
 end
 end
 end
-
-

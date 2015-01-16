@@ -5,18 +5,14 @@ module TrickBag
 module Numeric
 
 
-# Provides class methods for converting between the various representations
-# of a bitmap: number, binary encoded string, array, and sparse array.
-#
-# An instance can be created that will hold on to bitmap data and be used
+# Instances of this class can be created that will hold on to bitmap data and be used
 # to test bits and convert to other formats.
 #
 # Where an array is used to represent bits, the first element (#0) will be the
-# high bit and the last bit will be the 1's bit.
+# high bit and the last element will be the low (1's column) bit.
 class Bitmap
 
   extend Forwardable
-
 
   # This is the internal representation of the bitmap value:
   attr_reader :number
@@ -55,31 +51,39 @@ class Bitmap
     new(BitMapping.binary_string_to_number(string))
   end
 
-  # Creates an instance from a value array (e.g.)
-  def self.from_value_array(array)
-    new(BitMapping.value_array_to_number(array))
+  # Creates an instance from a value array (e.g. [8, 0, 0, 1])
+  def self.from_place_value_array(array)
+    new(BitMapping.place_value_array_to_number(array))
   end
 
+  # Creates an instance from a bit array (e.g. [1, 0, 0, 1])
   def self.from_bit_array(array)
     new(BitMapping.bit_array_to_number(array))
   end
 
+  # Creates an instance from an array of positions for the bits that are set (e.g. [0, 3])
   def self.from_set_bit_position_array(array)
     new(BitMapping.set_bit_position_array_to_number(array))
   end
 
+  # Instance methods to convert the data to the various representation types:
+
+  # Returns the instance's value as a binary string (e.g. "\x0C")
   def to_binary_string(min_length = 0)
     BitMapping.number_to_binary_string(number, min_length)
   end
 
-  def to_value_array
-    BitMapping.number_to_value_array(number)
+  # Returns the instance's value as an array of bit column values (e.g. [8, 0, 0, 1])
+  def to_place_value_array
+    BitMapping.number_to_place_value_array(number)
   end
 
+  # Returns the instance's value as an array of bit column place values (e.g. [8, 0, 0, 1])
   def to_bit_array
     BitMapping.number_to_bit_array(number)
   end
 
+  # Returns the instance's value as an array of positions for the bits that are set (e.g. [0, 3])
   def to_set_bit_position_array
     BitMapping.number_to_set_bit_positions_array(number)
   end
@@ -95,5 +99,3 @@ class Bitmap
 end
 end
 end
-
-

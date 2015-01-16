@@ -6,7 +6,7 @@ module Numeric
 # of a bitmap: number, binary encoded string, array, and sparse array.
 #
 # Where an array is used to represent bits, the first element (#0) will be the
-# high bit and the last element will be the low (1) bit.
+# high bit and the last element will be the low (1's column) bit.
 module BitMapping
 
   module_function
@@ -36,7 +36,7 @@ module BitMapping
 
 
   # Converts a number to an array of place values, e.g. 9 => [8, 0, 0, 1]
-  def number_to_value_array(number)
+  def number_to_place_value_array(number)
     assert_non_negative(number)
     array = []
     bit_value = 1
@@ -50,8 +50,8 @@ module BitMapping
 
 
   # Converts from a value array to a number, e.g. [8, 0, 0, 1] => 9
-  def value_array_to_number(value_array)
-    value_array.inject(&:+)
+  def place_value_array_to_number(place_value_array)
+    place_value_array.inject(&:+)
   end
 
 
@@ -105,33 +105,20 @@ module BitMapping
 
 
   # Converts a binary string to an array of bit values, e.g. "\x0C" => [1, 1, 0, 0]
-  def binary_string_to_bit_value_array(string)
+  def binary_string_to_bit_array(string)
     number = binary_string_to_number(string)
     number_to_bit_array(number)
   end
 
-  # Class methods to create instances from the various representation types
-  # handled in the class methods above:
 
-  # Creates an instance from a nonnegative number.
-  def from_number(number)
-    new(number)
-  end
-
-  # Creates an instance from a binary string (e.g. "\x0C").
-  def from_binary_string(string)
-    new(binary_string_to_number(string))
-  end
-
+  # If number is negative, raises an ArgumentError; else does nothing.
   def assert_non_negative(number)
     unless number.is_a?(Integer) && number >= 0
       raise ArgumentError.new(
-                "Parameter must be a nonnegative Integer (Fixnum, Bignum) " +
-                    "but is #{number.inspect} (a #{number.class})")
+          "Parameter must be a nonnegative Integer (Fixnum, Bignum) " +
+          "but is #{number.inspect} (a #{number.class})")
     end
   end
 end
 end
 end
-
-

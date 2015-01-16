@@ -44,29 +44,29 @@ context '.number_to_binary_string' do
 end
 
 
-context '.number_to_value_array' do
+context '.number_to_place_value_array' do
 
   specify '9 => [8, 0, 0, 1]' do
-    expect(BitMapping.number_to_value_array(9)).to eq([8, 0, 0, 1])
+    expect(BitMapping.number_to_place_value_array(9)).to eq([8, 0, 0, 1])
   end
 
   specify '256 => [256] + ([0] * 8)' do
-    expect(BitMapping.number_to_value_array(256)).to eq([256] + [0] * 8)
+    expect(BitMapping.number_to_place_value_array(256)).to eq([256] + [0] * 8)
   end
 
   specify 'a negative number should result in an error' do
-    expect { BitMapping.number_to_value_array(-1) }.to raise_error(ArgumentError)
+    expect { BitMapping.number_to_place_value_array(-1) }.to raise_error(ArgumentError)
   end
 end
 
-context '.value_array_to_number' do
+context '.place_value_array_to_number' do
 
   specify '[8, 0, 0, 1] => 9' do
-    expect(BitMapping.value_array_to_number([8, 0, 0, 1])).to eq(9)
+    expect(BitMapping.place_value_array_to_number([8, 0, 0, 1])).to eq(9)
   end
 
   specify '[] => nil' do
-    expect(BitMapping.value_array_to_number([])).to eq(nil)
+    expect(BitMapping.place_value_array_to_number([])).to eq(nil)
   end
 end
 
@@ -98,19 +98,19 @@ context '.number_to_bit_array' do
 end
 
 
-context '.binary_string_to_bit_value_array' do
+context '.binary_string_to_bit_array' do
   it 'computes byte values correctly' do
-    expect(BitMapping.binary_string_to_bit_value_array("\xFF")).to eq([1] * 8)
-    expect(BitMapping.binary_string_to_bit_value_array("\x0D")).to eq([1, 1, 0, 1])
+    expect(BitMapping.binary_string_to_bit_array("\xFF")).to eq([1] * 8)
+    expect(BitMapping.binary_string_to_bit_array("\x0D")).to eq([1, 1, 0, 1])
   end
 
   it 'considers the left-most byte most significant' do
-    expect(BitMapping.binary_string_to_bit_value_array("\x01\x00")).to eq([1] + [0] * 8)
+    expect(BitMapping.binary_string_to_bit_array("\x01\x00")).to eq([1] + [0] * 8)
   end
 
   # Unspecified encoding results in UTF-8 anyway, but this makes it explicit:
   it 'correctly handles non-ASCII_8BIT strings' do
-    actual = BitMapping.binary_string_to_bit_value_array("\x01\x00".force_encoding(Encoding::UTF_8))
+    actual = BitMapping.binary_string_to_bit_array("\x01\x00".force_encoding(Encoding::UTF_8))
     expect(actual).to eq([1] + [0] * 8)
   end
 end
@@ -140,4 +140,3 @@ context '.set_bit_position_array_to_number' do
 end
 end
 end
-
