@@ -133,6 +133,31 @@ module Formatters
     Diffy::Diff.new(string1, string2).to_s(format)
   end
 
+
+  # Outputs bytes verbosely one on a line for examination.
+  # The characters printed are 1 byte in length, so multibyte
+  # characters will not be output correctly.
+  def string_to_verbose_char_list(a_string)
+    format = '%5d         %3d      %4s   %10s       %c'
+    header = [
+        'Index     Decimal       Hex       Binary  Character',
+        '-----     -------       ---       ------  ---------',
+        '',
+        ''
+    ].join("\n")
+
+    sio = StringIO.new
+    sio << header
+
+    a_string.bytes.each_with_index do |byte, index|
+      hex_str = "0x#{byte.to_s(16)}"
+      base2_str = "0b#{byte.to_s(2)}"
+      sio << format % [index, byte, hex_str, base2_str,  byte.chr] << "\n"
+    end
+
+    sio.string
+  end
+
 end
 end
 
