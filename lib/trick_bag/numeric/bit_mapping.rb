@@ -56,14 +56,17 @@ module BitMapping
 
 
   # Converts a number to an array of bit values, e.g. 9 => [1, 0, 0, 1]
-  def number_to_bit_array(number)
+  def number_to_bit_array(number, minimum_binary_places = 0)
     assert_non_negative(number)
     array = []
     while number > 0
       array << (number & 1)
       number >>= 1
     end
-    array.reverse
+    array.reverse!
+    zero_pad_count = minimum_binary_places - array.size
+    zero_pad_count.times { array.unshift(0) }
+    array
   end
 
 
@@ -105,9 +108,9 @@ module BitMapping
 
 
   # Converts a binary string to an array of bit values, e.g. "\x0C" => [1, 1, 0, 0]
-  def binary_string_to_bit_array(string)
+  def binary_string_to_bit_array(string, minimum_binary_places = 0)
     number = binary_string_to_number(string)
-    number_to_bit_array(number)
+    number_to_bit_array(number, minimum_binary_places)
   end
 
 
@@ -118,6 +121,19 @@ module BitMapping
           "Parameter must be a nonnegative Integer (Fixnum, Bignum) " +
           "but is #{number.inspect} (a #{number.class})")
     end
+  end
+
+  # Reverses a binary string.  Note that it is not enough to reverse
+  # the string itself because although the bytes would be reversed,
+  # the bits within each byte would not.
+  def reverse_binary_string_bits(binary_string)
+    binary_place_count = binary_string.size * 8
+    reversed_bit_array = binary_string_to_bit_array(binary_string, binary_place_count).reverse
+    puts
+    puts reversed_bit_array
+    number = bit_array_to_number(reversed_bit_array)
+    puts number
+    number_to_binary_string(number)
   end
 end
 end

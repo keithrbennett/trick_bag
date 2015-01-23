@@ -150,15 +150,12 @@ describe Formatters do
       end
 
       specify 'third line should include some required text' do
-        puts
-        puts result
         #   0          97         61 x          110 0001 b       a
         expect(result[2]).to match(/^\s*\d*\s* 97 \s* 61 x \s* 110 0001 b\s*a\s*$/)
       end
 
       specify 'empty string returns header with 3rd line saying (string is empty)' do
         output = Formatters.string_to_verbose_char_list('')
-        puts; print 'Output: '; puts; puts output
         expect(output).to include('(String is empty)')
       end
     end
