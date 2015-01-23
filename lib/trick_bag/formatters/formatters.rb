@@ -136,25 +136,40 @@ module Formatters
 
   # Outputs bytes verbosely one on a line for examination.
   # The characters printed are 1 byte in length, so multibyte
-  # characters will not be output correctly.
+  # characters will not be output correctly.  Output will look like:
+  #
+  # Index     Decimal        Hex              Binary    Character
+  # -----     -------        ---              ------    ---------
+  #     0          97         61 x          110 0001 b       a
+  #     1          49         31 x           11 0001 b       1
+  #     2          46         2e x           10 1110 b       .
+  #
   def string_to_verbose_char_list(a_string)
-    format = '%5d         %3d      %4s   %10s       %c'
+
     header = [
-        'Index     Decimal       Hex       Binary  Character',
-        '-----     -------       ---       ------  ---------',
-        '',
-        ''
+        'Index     Decimal        Hex              Binary    Character',
+        '-----     -------        ---              ------    ---------',
+        ''  # 3rd string is just to force a 3rd \n when joined
     ].join("\n")
 
     sio = StringIO.new
     sio << header
 
-    a_string.bytes.each_with_index do |byte, index|
-      hex_str = "0x#{byte.to_s(16)}"
-      base2_str = "0b#{byte.to_s(2)}"
-      sio << format % [index, byte, hex_str, base2_str,  byte.chr] << "\n"
-    end
+    if a_string.empty?
+      sio << '(String is empty)'
+    else
+      format = '%5d         %3d       %+6s    %+16s       %c'
+      a_string.bytes.each_with_index do |byte, index|
+        hex_str = "#{byte.to_s(16)} x"
 
+        base2_str = "#{byte.to_s(2)} b"
+        if base2_str.size > 6
+          base2_str.insert(base2_str.size - 6, ' ')
+        end
+
+        sio << format % [index, byte, hex_str, base2_str,  byte.chr] << "\n"
+      end
+    end
     sio.string
   end
 
