@@ -129,10 +129,7 @@ module BitMapping
   def reverse_binary_string_bits(binary_string)
     binary_place_count = binary_string.size * 8
     reversed_bit_array = binary_string_to_bit_array(binary_string, binary_place_count).reverse
-    puts
-    puts reversed_bit_array
     number = bit_array_to_number(reversed_bit_array)
-    puts number
     number_to_binary_string(number)
   end
 end

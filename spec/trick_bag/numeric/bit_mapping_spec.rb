@@ -151,6 +151,14 @@ context '.reverse_binary_string_bits' do
     expect(BitMapping.reverse_binary_string_bits("\x01").size).to eq(1)
     expect(BitMapping.reverse_binary_string_bits(hex_01)).to eq(hex_80)
   end
+
+  specify 'a multiple byte string should reverse correctly' do
+    hex_01 = "\x00\x01".force_encoding(Encoding::ASCII_8BIT)
+    hex_80 = "\x80\x00".force_encoding(Encoding::ASCII_8BIT)
+    expect(BitMapping.reverse_binary_string_bits("\x01").size).to eq(1)
+    expect(BitMapping.reverse_binary_string_bits(hex_01)).to eq(hex_80)
+  end
 end
 end
 end
+
