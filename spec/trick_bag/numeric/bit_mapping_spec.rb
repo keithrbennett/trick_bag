@@ -95,6 +95,10 @@ context '.number_to_bit_array' do
   specify 'a negative number should result in an error' do
     expect { BitMapping.number_to_bit_array(-1) }.to raise_error(ArgumentError)
   end
+
+  specify 'a minimum bit array size is respected' do
+    expect(BitMapping.number_to_bit_array(0, 3)).to eq([0, 0, 0])
+  end
 end
 
 
@@ -138,5 +142,23 @@ context '.set_bit_position_array_to_number' do
     expect(BitMapping.set_bit_position_array_to_number([])).to eq(nil)
   end
 end
+
+
+context '.reverse_binary_string_bits' do
+  specify 'a single byte string should reverse correctly' do
+    hex_01 = "\x01".force_encoding(Encoding::ASCII_8BIT)
+    hex_80 = "\x80".force_encoding(Encoding::ASCII_8BIT)
+    expect(BitMapping.reverse_binary_string_bits("\x01").size).to eq(1)
+    expect(BitMapping.reverse_binary_string_bits(hex_01)).to eq(hex_80)
+  end
+
+  specify 'a multiple byte string should reverse correctly' do
+    hex_01 = "\x00\x01".force_encoding(Encoding::ASCII_8BIT)
+    hex_80 = "\x80\x00".force_encoding(Encoding::ASCII_8BIT)
+    expect(BitMapping.reverse_binary_string_bits("\x01").size).to eq(1)
+    expect(BitMapping.reverse_binary_string_bits(hex_01)).to eq(hex_80)
+  end
 end
 end
+end
+

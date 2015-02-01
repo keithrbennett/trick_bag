@@ -133,6 +133,32 @@ describe Formatters do
         expect(actual_text).to eq(expected_text)
       end
     end
+
+
+    context 'string_to_verbose_char_list' do
+
+      let(:result) { Formatters.string_to_verbose_char_list("a1.").split("\n") }
+
+      specify 'first line should have header text' do
+        required_words = %w(Index  Decimal  Hex  Binary  Character)
+        expect(required_words.all? { |word| result[0].include?(word) }).to eq(true)
+      end
+
+      specify 'second line should have only lines' do
+        non_blank_or_hyphens = result[1].chars.reject { |char| [' ', '-'].include?(char) }
+        expect(non_blank_or_hyphens).to be_empty
+      end
+
+      specify 'third line should include some required text' do
+        #   0          97         61 x          110 0001 b       a
+        expect(result[2]).to match(/^\s*\d*\s* 97 \s* 61 x \s* 110 0001 b\s*a\s*$/)
+      end
+
+      specify 'empty string returns header with 3rd line saying (string is empty)' do
+        output = Formatters.string_to_verbose_char_list('')
+        expect(output).to include('(String is empty)')
+      end
+    end
   end
 
 end
