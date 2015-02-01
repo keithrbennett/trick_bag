@@ -25,6 +25,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", '~> 10.1'
   spec.add_development_dependency "rspec", '~> 3.0'
 
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "pry-byebug"
+  unless /java/ === RUBY_PLATFORM
+    spec.add_development_dependency 'pry', '~> 0.10'
+    spec.add_development_dependency 'pry-byebug', '~> 2.0' if RUBY_VERSION >= '2'
+  end
 end
