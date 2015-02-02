@@ -173,6 +173,19 @@ module Formatters
     sio.string
   end
 
+
+  # Returns a string representation of the Integer corresponding to the
+  # input parameter, with a customizable thousands separator.
+  # Does not (yet) support fractional values or decimal places.
+  def thousands_separated(number, separator = ',')
+    number = Integer(number)
+    triplets = []
+    source_chars = number.to_s.reverse.chars
+    source_chars.each_slice(3) do |slice|
+      triplets << slice.join
+    end
+    triplets.join(separator).reverse
+  end
 end
 end
 

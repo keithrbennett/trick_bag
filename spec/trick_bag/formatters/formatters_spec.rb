@@ -159,6 +159,27 @@ describe Formatters do
         expect(output).to include('(String is empty)')
       end
     end
+
+
+    context '.thousands_separated' do
+
+      specify 'no separators for <= 3 digit numbers' do
+        expect(Formatters.thousands_separated(123)).to eq('123')
+        expect(Formatters.thousands_separated(12)).to eq('12')
+        expect(Formatters.thousands_separated(1)).to eq('1')
+      end
+
+      specify 'separators are in the right places' do
+        expect(Formatters.thousands_separated(1_234)).to eq('1,234')
+        expect(Formatters.thousands_separated(12_345)).to eq('12,345')
+        expect(Formatters.thousands_separated(123_456)).to eq('123,456')
+        expect(Formatters.thousands_separated(1_234_567)).to eq('1,234,567')
+      end
+
+      specify 'custom separators work properly' do
+        expect(Formatters.thousands_separated(1_234_567, '.')).to eq('1.234.567')
+      end
+    end
   end
 
 end
