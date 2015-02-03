@@ -35,18 +35,19 @@ module KmgtNumericString
     object.is_a?(String) ? ToNumberConverter.new(object).to_number : object
   end
 
-  # Returns whether or not this is a number range.  Specifically, tests that
+  # Returns whether or not this is a number range string.  Specifically, tests that
   # the string contains only 2 numeric strings separated by '..'.
   def range_string?(string)
+    return false unless string.is_a?(String)
     number_strings = string.split('..')
     number_strings.size == 2 && number_strings.all? { |str| VALID_STRING_REGEX.match(str) }
   end
 
   # Converts the passed string to a range (see range_string? above for the string's format).
-  # If the passed parameter is a Range already, returns it unchanged.
+  # If the passed parameter is nil or is a Range already, returns it unchanged.
   # This eliminates the need for the caller to do their own type test.
   def to_range(object)
-    return object if object.is_a?(Range)
+    return object if object.is_a?(Range) || object.nil?
     unless range_string?(object)
         raise ArgumentError.new("Invalid argument (#{object}); Range must be 2 numbers separated by '..', e.g. 10..20 or 900K..1M")
     end
@@ -55,11 +56,11 @@ module KmgtNumericString
   end
 
   # Converts a string such as '3' or '1k..2k' into a number or range.
-  # If an Integer or Range is passed, it is returned unchanged.
+  # If nil or an Integer or Range is passed, it is returned unchanged.
   # This eliminates the need for the caller to do their own type test.
   def to_number_or_range(object)
     case object
-      when Integer, Range
+      when Integer, Range, NilClass
         object
       when String
         range_string?(object) ? to_range(object) : to_number(object)

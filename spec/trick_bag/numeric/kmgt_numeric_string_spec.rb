@@ -39,6 +39,10 @@ end
         expect(to_number('-10k')).to eq(-10 * 1000)
         expect(to_number('-10')).to eq(-10)
       end
+
+      specify 'nil is returned unchanged' do
+        expect(to_number(nil)).to eq(nil)
+      end
     end
 
 
@@ -58,6 +62,10 @@ end
         expect(range_string?('-1..1')).to eq(true)
         expect(range_string?('10K..10M')).to eq(true)
       end
+
+      specify 'nil returns false' do
+        expect(range_string?(nil)).to eq(false)
+      end
     end
 
 
@@ -70,6 +78,10 @@ end
       specify 'ascending ranges are supported' do
         expect(to_range('3k..4k')).to eq((3000..4000))
       end
+
+      specify 'nil is returned unchanged' do
+        expect(to_range(nil)).to eq(nil)
+      end
     end
 
     context '.to_number_or_range' do
@@ -77,6 +89,10 @@ end
       specify 'correct determination of number vs. range' do
         expect(to_number_or_range('12k')).to eq(12_000)
         expect(to_number_or_range('12k..24k')).to eq(12_000..24_000)
+      end
+
+      specify 'nil is returned unchanged' do
+        expect(to_number_or_range(nil)).to eq(nil)
       end
     end
     end
