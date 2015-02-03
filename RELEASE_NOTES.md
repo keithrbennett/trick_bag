@@ -1,3 +1,8 @@
+## v0.58.1
+
+* For KmgtNumericString, support returning of nil/false on nil input.
+
+
 ## v0.58.0
 
 * Added KmbtNumericString, Formatters.thousands_separated.
