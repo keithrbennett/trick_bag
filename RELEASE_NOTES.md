@@ -1,3 +1,8 @@
+## v0.58.0
+
+* Added KmbtNumericString, Formatters.thousands_separated.
+
+
 ## v0.57.0
 
 * Removed most class methods from Bitmap and put them in new BitMapping module.
