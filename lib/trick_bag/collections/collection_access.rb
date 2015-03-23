@@ -19,10 +19,10 @@ module CollectionAccess
   #
   # Error occurred processing key [x.1] in [x.1.2]: undefined method `[]' for nil:NilClass
   #
-  # @param the collection to access
+  # @param collection the collection to access
   # @param key_string the string representing the keys to use
-  # @separator the string to use to separate the
-  def access(collection, key_string, separator = '.')
+  # @param separator the string to use to separate the nesting levels (default = '.')
+  def access(collection, key_string, separator = '.', nil_strategy = :return)
 
     is_number_string = ->(s) do
       begin
@@ -38,6 +38,9 @@ module CollectionAccess
 
     keys.each_with_index do |key, index|
 
+      if return_object.nil?
+        if nil_strategy == :return
+      end
       if return_object.kind_of?(Array)
         unless is_number_string.(key)
           raise "Key is not a number string: #{key}"
