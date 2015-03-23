@@ -1,3 +1,9 @@
+## v0.59
+
+* Timing.retry_until_true_or_timeout now optionally takes a code block instead of a lambda.
+  Also, method signature's parameter order has changed.  This is a breaking change for users
+  of this method. A descriptive error has been provided to explain if this happens.
+
 ## v0.58.1
 
 * For KmgtNumericString, support returning of nil/false on nil input.
