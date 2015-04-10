@@ -19,37 +19,41 @@ module CollectionAccess
   #
   # Error occurred processing key [x.1] in [x.1.2]: undefined method `[]' for nil:NilClass
   #
-  # @param the collection to access
-  # @param key_string the string representing the keys to use
-  # @separator the string to use to separate the
-  def access(collection, key_string, separator = '.')
+  # @param collection the collection to access
+  # @param key_string_or_array the string or array representing the keys to use
+  # @param separator the string to use to separate the keys, defaults to '.'
+  def access(collection, key_string_or_array, separator = '.')
 
-    is_number_string = ->(s) do
+    to_integer = ->(object) do
       begin
-        Integer(s)
-        true
+        Integer(object)
       rescue
-        false
+        raise "Key is not a number string: #{object}"
       end
     end
 
-    keys = key_string.split(separator)
+    get_key_array = -> do
+      case key_string_or_array
+        when Array
+          key_string_or_array
+        when String
+          key_string_or_array.split(separator)
+        else
+          raise "Invalid data type: #{key_string_or_array.class}"
+      end
+    end
+
+    keys = get_key_array.()
     return_object = collection
 
     keys.each_with_index do |key, index|
-
-      if return_object.kind_of?(Array)
-        unless is_number_string.(key)
-          raise "Key is not a number string: #{key}"
-        end
-        key = key.to_i
-      end
+      key = to_integer.(key) if return_object.kind_of?(Array)
 
       begin
         return_object = return_object[key]
       rescue => e
         this_key = keys[0..index].join(separator)
-        raise "Error occurred processing key [#{this_key}] in [#{key_string}]: #{e}"
+        raise "Error occurred processing key [#{this_key}] in [#{key_string_or_array}]: #{e}"
       end
     end
     return_object
@@ -69,7 +73,10 @@ module CollectionAccess
   # or
   # accessor.('h.1')    # => 'b'
   def accessor(collection, separator = '.')
-    ->(key_string) { access(collection, key_string, separator) }
+    ->(*args) do
+      key_string = (args.size == 1) ? args.first : args.map(&:to_s).join(separator)
+      access(collection, key_string, separator)
+    end
   end
 
 end

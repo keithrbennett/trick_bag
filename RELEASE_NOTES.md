@@ -1,3 +1,9 @@
+## v0.60
+
+* CollectionAccess methods now support an array of keys/subscripts instead of
+  a string.
+
+
 ## v0.59
 
 * Timing.retry_until_true_or_timeout now optionally takes a code block instead of a lambda.
