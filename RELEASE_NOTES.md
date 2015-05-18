@@ -1,3 +1,8 @@
+## v0.61.0
+
+* Added Timing::Elapser.
+
+
 ## v0.60
 
 * CollectionAccess methods now support an array of keys/subscripts instead of

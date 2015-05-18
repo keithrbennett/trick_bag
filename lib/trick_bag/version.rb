@@ -1,3 +1,3 @@
 module TrickBag
-  VERSION = '0.60'
+  VERSION = '0.61.0'
 end
