@@ -54,7 +54,7 @@ class Elapser
 
 
   def hash
-    Integer(@seconds - @end_time)
+    Integer(@seconds - @end_time.to_i)
   end
 
 

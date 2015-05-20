@@ -83,6 +83,10 @@ module TrickBag
           expect(Elapser.from(:never).never_elapse).to eq(true)
         end
       end
+
+      context '#hash' do
+        expect(Elapser.new(3).hash).to be_a(Integer)
+      end
     end
   end
 end
