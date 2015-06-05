@@ -30,7 +30,7 @@ module TrickBag
           e = Elapser.new(now + 30)
           expect(e.class).to eq(Elapser)
           expect(e.seconds).to be_within(0.1).of(30)
-          expect(e.end_time - Time.now).to be_within(0.1).of(30)
+          expect(e.end_time - now).to be_within(0.1).of(30)
         end
 
         specify 'an invalid parameter type raises an error' do
@@ -85,7 +85,9 @@ module TrickBag
       end
 
       context '#hash' do
-        expect(Elapser.new(3).hash).to be_a(Integer)
+        specify '#hash returns an Integer' do
+          expect(Elapser.new(3).hash).to be_a(Integer)
+        end
       end
     end
   end
