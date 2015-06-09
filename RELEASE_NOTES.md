@@ -1,3 +1,7 @@
+## v0.62.0
+
+* Added Timing.try_with_timeout.
+
 ## v0.61.0
 
 * Added Timing::Elapser.

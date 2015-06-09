@@ -68,4 +68,14 @@ module TrickBag
     end
   end
 
+
+  context '.try_with_timeout' do
+    it 'should return true and the block return value when timeout does not occur' do
+      expect(Timing.try_with_timeout(0.2, 0.01) { 7 }).to eq([true, 7])
+    end
+
+    it 'should return false and nil when timeout occurs' do
+      expect(Timing.try_with_timeout(0.2, 0.01) { sleep 100; 7 }).to eq([false, nil])
+    end
+  end
 end

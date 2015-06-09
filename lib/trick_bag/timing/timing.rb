@@ -90,5 +90,31 @@ module Timing
     return_value
   end
 
+
+  # Runs the passed block in a new thread, ensuring that its execution time
+  # does not exceed the specified duration.
+  #
+  # @param max_seconds maximum number of seconds to wait for completion
+  # @param check_interval_in_secs interval in seconds at which to check for completion
+  # @block block of code to execute in the secondary thread
+  #
+  # @return [true, block return value] if the block completes before timeout
+  #      or [false, nil] if the block is still active (i.e. the thread is still alive)
+  #      when max_seconds is reached
+  def try_with_timeout(max_seconds, check_interval_in_secs, &block)
+    raise "Must pass block to this method" unless block_given?
+    end_time = Time.now + max_seconds
+    block_return_value = nil
+    thread = Thread.new { block_return_value = block.call }
+    while Time.now < end_time
+      unless thread.alive?
+        return [true, block_return_value]
+      end
+      sleep(check_interval_in_secs)
+    end
+    # thread.kill
+    [false, nil]
+  end
+
 end
 end
