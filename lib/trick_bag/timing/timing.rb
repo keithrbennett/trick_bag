@@ -112,7 +112,7 @@ module Timing
       end
       sleep(check_interval_in_secs)
     end
-    # thread.kill
+    thread.kill
     [false, nil]
   end
 

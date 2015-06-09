@@ -1,3 +1,8 @@
+## v0.62.1
+
+* Reinstated thread.kill in Timing.try_with_timeout.
+
+
 ## v0.62.0
 
 * Added Timing.try_with_timeout.
