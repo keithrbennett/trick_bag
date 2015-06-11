@@ -1,3 +1,7 @@
+## v0.63.0
+
+* Add SshOutputReader.
+
 ## v0.62.1
 
 * Reinstated thread.kill in Timing.try_with_timeout.
