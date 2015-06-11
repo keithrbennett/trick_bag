@@ -1,6 +1,12 @@
+## v0.63.1
+
+* Put SshOutputReader in TrickBag::Networking module.
+
+
 ## v0.63.0
 
 * Add SshOutputReader.
+
 
 ## v0.62.1
 

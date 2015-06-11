@@ -1,5 +1,9 @@
 require 'net/ssh'
 
+module TrickBag
+module Networking
+
+
 # Runs an ssh command, collecting the stdout and stderr produced by it.
 # Optionally a predicate can be specified that, when called with the
 # instance of this class, returns true to close
@@ -154,4 +158,6 @@ echo 4'
   #     .set_exit_predicate(has_3_lines))
 
   # run_reader(SshOutputReader.new('localhost', command))
+end
+end
 end
