@@ -68,10 +68,6 @@ module BinaryToHexAndAscii
 0x  10  70 77 7E 85 | 8C 93 9A A1 | A8 AF B6 BD | C4 CB D2 D9  pw~.............\n")
       end
     end
-
   end
-
-
-
 end
 end

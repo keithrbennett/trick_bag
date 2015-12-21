@@ -37,7 +37,7 @@ module BinaryToHexAndAscii
 
 
   def offset_string(offset)
-    "0x%4x" % [offset, offset] # Offset, e.g. "   100x (    256)"
+    "0x%4x" % [offset] # Offset, e.g. "0x   0" or "0x  10"
   end
 
 
