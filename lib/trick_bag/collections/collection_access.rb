@@ -28,7 +28,7 @@ module CollectionAccess
       begin
         Integer(object)
       rescue
-        raise "Key is not a number string: #{object}"
+        raise "Key cannot be converted to an Integer: #{object}"
       end
     end
 
