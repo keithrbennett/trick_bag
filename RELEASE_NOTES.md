@@ -1,3 +1,8 @@
+## v0.64.0
+
+* Add BinaryToHexAndAscii formatter.
+
+
 ## v0.63.1
 
 * Put SshOutputReader in TrickBag::Networking module.
