@@ -1,3 +1,8 @@
+## v0.64.1
+
+* Minor documentation fix.
+
+
 ## v0.64.0
 
 * Add BinaryToHexAndAscii formatter.

@@ -2,11 +2,14 @@ module TrickBag
 
 # Takes a string as input and formats it to a string containing offset,
 # hex values, and ASCII values, with unprintable chars printed as '.'.
-# Call as BinaryToHexAndAscii.format(byte_array_or_string)
+# Call as TrickBag::BinaryToHexAndAscii.format(byte_array_or_string)
 #
 # Sample Output:
 
-# format(Array.new(32) { |i| i * 7 }):
+# require 'trick_bag'
+# array = Array.new(32) { |i| i * 7 }
+# puts TrickBag::BinaryToHexAndAscii.format(array)
+
 # 0x   0  00 07 0E 15 | 1C 23 2A 31 | 38 3F 46 4D | 54 5B 62 69  .....#*18?FMT[bi
 # 0x  10  70 77 7E 85 | 8C 93 9A A1 | A8 AF B6 BD | C4 CB D2 D9  pw~.............
 
