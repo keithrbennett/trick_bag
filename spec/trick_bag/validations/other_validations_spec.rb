@@ -37,7 +37,7 @@ module TrickBag
         result = test_gem_dependency_specs('trick_bag')
         exit_status = result[:exit_status]
         if exit_status  != 0
-          fail "Exit status was #{exit_status}, output was:\n#{output}."
+          fail "Exit status was #{exit_status}, output was:\n#{result[:output]}."
         end
       end
     end

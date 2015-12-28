@@ -1,3 +1,8 @@
+## v0.64.2
+
+* Fix net-ssh version error on Ruby versions < 2.
+
+
 ## v0.64.1
 
 * Minor documentation fix.
