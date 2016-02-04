@@ -13,11 +13,11 @@ module BinaryToHexAndAscii
     context '#one_to_four_bytes_as_hex' do
 
       specify '1 byte works' do
-        expect(one_to_four_bytes_as_hex([1])).to eq('01')
+        expect(bytes_as_hex([1])).to eq('01')
       end
 
       specify '4 bytes works' do
-        expect(one_to_four_bytes_as_hex([0, 16, 64, 255])).to eq('00 10 40 FF')
+        expect(bytes_as_hex([0, 16, 64, 255])).to eq('00 10 40 FF')
       end
 
     end

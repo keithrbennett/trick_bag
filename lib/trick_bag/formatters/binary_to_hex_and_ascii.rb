@@ -34,13 +34,13 @@ module BinaryToHexAndAscii
   end
 
 
-  def one_to_four_bytes_as_hex(bytes)
+  def bytes_as_hex(bytes)
     bytes.map { |b| "%02X" % b }.join(' ')
   end
 
 
   def offset_string(offset)
-    "0x%4x" % [offset] # Offset, e.g. "0x   0" or "0x  10"
+    "0x%4X" % [offset] # Offset, e.g. "0x   0" or "0x  10"
   end
 
 
@@ -60,7 +60,7 @@ module BinaryToHexAndAscii
 
 
   def format_line(offset, bytes)
-    sections = bytes.each_slice(4).to_a.map { |slice| one_to_four_bytes_as_hex(slice) }
+    sections = bytes.each_slice(4).to_a.map { |slice| bytes_as_hex(slice) }
 
     offset_string(offset) \
         << '  ' \
