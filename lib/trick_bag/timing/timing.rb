@@ -29,30 +29,40 @@ module Timing
   def retry_until_true_or_timeout(
       sleep_interval, timeout_secs, output_stream = $stdout, predicate = nil)
 
+    test_preconditions = -> do
 
-    # Method signature has changed from:
-    # (predicate, sleep_interval, timeout_secs, output_stream = $stdout)
-    # to:
-    # (sleep_interval, timeout_secs, output_stream = $stdout, predicate = nil)
-    #
-    # Test to see that when old signature is used, a descriptive error is raised.
-    #
-    # This test should be removed when we go to version 1.0.
-    if sleep_interval.respond_to?(:call)
-      raise ArgumentError.new('Sorry, method signature has changed to: ' \
-            '(sleep_interval, timeout_secs, output_stream = $stdout, predicate = nil).' \
-            '  Also a code block can now be provided instead of a lambda.')
+      # Method signature has changed from:
+      # (predicate, sleep_interval, timeout_secs, output_stream = $stdout)
+      # to:
+      # (sleep_interval, timeout_secs, output_stream = $stdout, predicate = nil)
+      #
+      # Test to see that when old signature is used, a descriptive error is raised.
+      #
+      # This test should be removed when we go to version 1.0.
+      if sleep_interval.respond_to?(:call)
+        raise ArgumentError.new('Sorry, method signature has changed to: ' \
+              '(sleep_interval, timeout_secs, output_stream = $stdout, predicate = nil).' \
+              '  Also a code block can now be provided instead of a lambda.')
+      end
+
+      if block_given? && predicate
+        raise ArgumentError.new('Both a predicate lambda and a code block were specified.' \
+            '  Please specify one or the other but not both.')
+      end
     end
 
-    if block_given? && predicate
-      raise ArgumentError.new('Both a predicate lambda and a code block were specified.' \
-          '  Please specify one or the other but not both.')
-    end
+    test_preconditions.()
 
     success = false
-    end_time = Time.now + timeout_secs
-    time_to_go = nil
-    text_generator = ->() { '%9.3f   %9.3f' % [time_elapsed, time_to_go] }
+    start_time = Time.now
+    end_time = start_time + timeout_secs
+
+    text_generator = ->() do
+      now = Time.now
+      elapsed = now - start_time
+      to_go = end_time - now
+      '%9.3f   %9.3f' % [elapsed, to_go]
+    end
     status_updater = ::TrickBag::Io::TextModeStatusUpdater.new(text_generator, output_stream)
 
     loop do
