@@ -7,11 +7,11 @@ module TrickBag
     context "multi_eq" do
 
       specify "that calling with no params raises an error" do
-        expect(->{ Operators.multi_eq() }).to raise_error
+        expect(->{ Operators.multi_eq() }).to raise_error(ArgumentError)
       end
 
-      specify "that calling with no params raises an error" do
-        expect(->{ Operators.multi_eq(1) }).to raise_error
+      specify "that calling with 1 param raises an error" do
+        expect(->{ Operators.multi_eq(1) }).to raise_error(ArgumentError)
       end
 
       test_return_value = ->(true_or_false, *values) do
