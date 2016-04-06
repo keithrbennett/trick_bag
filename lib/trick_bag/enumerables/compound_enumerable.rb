@@ -52,12 +52,12 @@ class CompoundEnumerable
   def initialize(mode, keys, *enumerables)
 
     validate_inputs = ->do
-      raise "Mode must be either :yields_arrays or :yields_hashes" unless [:yields_arrays, :yields_hashes].include?(mode)
-      raise "Keys not provided" if mode == :yields_hashes && (! keys.is_a?(Array))
-      raise "No enumerables provided" if enumerables.empty?
+      raise ArgumentError.new("Mode must be either :yields_arrays or :yields_hashes") unless [:yields_arrays, :yields_hashes].include?(mode)
+      raise ArgumentError.new("Keys not provided") if mode == :yields_hashes && (! keys.is_a?(Array))
+      raise ArgumentError.new("No enumerables provided") if enumerables.empty?
 
       if mode == :yields_hashes && (keys.size != enumerables.size)
-        raise "Key array size (#{keys.size}) is different from enumerables size (#{enumerables.size})."
+        raise ArgumentError.new("Key array size (#{keys.size}) is different from enumerables size (#{enumerables.size}).")
       end
 
     end

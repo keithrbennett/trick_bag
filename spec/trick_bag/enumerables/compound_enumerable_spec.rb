@@ -9,17 +9,17 @@ module Enumerables
     context 'input validations' do
 
       specify 'an initialization error will be raised if no enumerables are specified' do
-        expect(->{ CompoundEnumerable.array_enumerable() }).to raise_error
-        expect(->{ CompoundEnumerable.hash_enumerable([:key]) }).to raise_error
+        expect(->{ CompoundEnumerable.array_enumerable() }).to raise_error(ArgumentError)
+        expect(->{ CompoundEnumerable.hash_enumerable([:key]) }).to raise_error(ArgumentError)
       end
 
       specify 'an initialization error will be raised if mode is not :yields_arrays or :yields_hashes' do
-        expect(->{ CompoundEnumerable.new(:bad_mode, [], [])}).to raise_error
+        expect(->{ CompoundEnumerable.new(:bad_mode, [], [])}).to raise_error(ArgumentError)
       end
 
       specify 'an initialization error will be raised if key array size != enumerables size in :yields_hashes mode' do
-        expect(->{ CompoundEnumerable.new(:yields_hashes, [:key1, :key2], [])}).to raise_error
-        expect(->{ CompoundEnumerable.hash_enumerable([:key1, :key2], [])}).to raise_error
+        expect(->{ CompoundEnumerable.new(:yields_hashes, [:key1, :key2], [])}).to raise_error(ArgumentError)
+        expect(->{ CompoundEnumerable.hash_enumerable([:key1, :key2], [])}).to raise_error(ArgumentError)
       end
     end
 

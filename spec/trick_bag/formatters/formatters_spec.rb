@@ -10,7 +10,7 @@ describe Formatters do
   context ".duration_to_s" do
 
     specify "it will not permit a non-number" do
-      expect(->() { Formatters.duration_to_s([])}).to raise_error
+      expect(->() { Formatters.duration_to_s([])}).to raise_error(ArgumentError)
     end
 
     expect_output_for_input = ->(expected_output, input) do
@@ -88,7 +88,7 @@ describe Formatters do
     end
 
     specify "a bad strategy will result in a raised error" do
-      expect(->() { Formatters.dos2unix('', :not_a_strategy) }).to raise_error
+      expect(->() { Formatters.dos2unix('', :not_a_strategy) }).to raise_error(ArgumentError)
     end
   end
 

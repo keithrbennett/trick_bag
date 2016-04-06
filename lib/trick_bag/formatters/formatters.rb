@@ -16,6 +16,10 @@ module Formatters
   # duration_to_s(1000.234567) => "16 m, 40.23456699999997 s"
   def duration_to_s(seconds)
 
+    unless seconds.is_a?(::Numeric)
+      raise ArgumentError.new("#{seconds} must be a number but is a #{seconds.class}.")
+    end
+
     seconds_in_minute = 60
     seconds_in_hour = 60 * seconds_in_minute
     seconds_in_day = 24 *seconds_in_hour
@@ -107,7 +111,8 @@ module Formatters
     }
 
     unless strategies.keys.include?(strategy)
-      raise "Unsupported strategy: #{strategy}. Must be one of [#{strategies.keys.sort.join(', ')}]."
+      message = "Unsupported strategy: #{strategy}. Must be one of [#{strategies.keys.sort.join(', ')}]."
+      raise ArgumentError.new(message)
     end
 
     strategies[strategy].()

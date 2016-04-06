@@ -37,7 +37,7 @@ end
         Classes.undef_class('ClassPatchTestClass', TrickBag::Meta)
       end
       fn.()
-      expect(->{ ClassPatchTestClass.new }).to raise_error
+      expect(->{ ClassPatchTestClass.new }).to raise_error(NameError)
     end
   end
 

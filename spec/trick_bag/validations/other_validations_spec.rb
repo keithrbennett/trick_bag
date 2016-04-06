@@ -8,12 +8,14 @@ module TrickBag
 
     include Validations
 
+    InvalidValueError = TrickBag::Validations::InvalidValueError
+
     specify "*no* error is raised if the value is included" do
       expect(->{raise_on_invalid_value('foo', ['foo']) }).not_to raise_error
     end
 
     specify "an error *is* raised if the value is not included" do
-      expect(->{raise_on_invalid_value('foo', []) }).to raise_error
+      expect(->{raise_on_invalid_value('foo', []) }).to raise_error(InvalidValueError)
     end
 
     specify "the error message is correct" do

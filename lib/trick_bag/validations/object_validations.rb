@@ -3,6 +3,8 @@ module Validations
 
   module_function
 
+  class ObjectValidationError < RuntimeError;  end
+
 
   # Returns an array containing each symbol in vars for which the
   # corresponding instance variable  in the specified object is nil.
@@ -17,7 +19,7 @@ module Validations
   def raise_on_nil_instance_vars(object, vars)
     nil_vars = nil_instance_vars(object, vars)
     unless nil_vars.empty?
-      raise "The following instance variables were nil: #{nil_vars.join(', ')}."
+      raise ObjectValidationError.new("The following instance variables were nil: #{nil_vars.join(', ')}.")
     end
   end
 end

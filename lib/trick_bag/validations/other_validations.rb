@@ -1,6 +1,8 @@
 module TrickBag
 module Validations
 
+  class InvalidValueError < RuntimeError;  end
+
   module_function
 
   # Used to succinctly (for the caller) check to see that a value provided by the caller
@@ -25,7 +27,7 @@ module Validations
     if missing
       values_display_array = output_with_inspect ? valid_values.map(&:inspect) : valid_values.map(&:to_s)
       message = "Invalid #{label} '#{value}'; must be one of: [#{values_display_array.join(', ')}]."
-      raise message
+      raise InvalidValueError.new(message)
     end
   end
 

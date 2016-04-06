@@ -4,6 +4,8 @@
 module TrickBag
 module CollectionAccess
 
+  class Error < RuntimeError; end
+
   module_function
 
 
@@ -28,7 +30,7 @@ module CollectionAccess
       begin
         Integer(object)
       rescue
-        raise "Key cannot be converted to an Integer: #{object}"
+        raise Error.new("Key cannot be converted to an Integer: #{object}")
       end
     end
 
@@ -39,7 +41,7 @@ module CollectionAccess
         when String
           key_string_or_array.split(separator)
         else
-          raise "Invalid data type: #{key_string_or_array.class}"
+          raise Error.new("Invalid data type: #{key_string_or_array.class}")
       end
     end
 
@@ -53,7 +55,7 @@ module CollectionAccess
         return_object = return_object[key]
       rescue => e
         this_key = keys[0..index].join(separator)
-        raise "Error occurred processing key [#{this_key}] in [#{key_string_or_array}]: #{e}"
+        raise Error.new("Error occurred processing key [#{this_key}] in [#{key_string_or_array}]: #{e}")
       end
     end
     return_object

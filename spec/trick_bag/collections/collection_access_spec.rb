@@ -55,14 +55,14 @@ describe CollectionAccess do
 
     it 'raises an error when accessing an invalid key' do
       h = { 'h' => ['a', 'b'] }
-      expect(-> { CollectionAccess.access(h, 'x.1.2') }).to raise_error
-      expect(-> { CollectionAccess.access(h, [x, 1, 2]) }).to raise_error
+      expect(-> { CollectionAccess.access(h, 'x.1.2') }).to raise_error(Error)
+      expect(-> { CollectionAccess.access(h, ['x', 1, 2]) }).to raise_error(Error)
     end
 
     it 'raises an error when accessing a string that should be a number' do
       h = { 'x' => ['a', 'b'] }
-      expect(-> { CollectionAccess.access(h, 'x.x') }).to raise_error
-      expect(-> { CollectionAccess.access(h, [x, x]) }).to raise_error
+      expect(-> { CollectionAccess.access(h, 'x.x') }).to raise_error(Error)
+      expect(-> { CollectionAccess.access(h, ['x', 'x']) }).to raise_error(Error)
     end
   end
 
