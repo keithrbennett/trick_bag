@@ -60,7 +60,7 @@ module Formatters
   # This is to disable the Diffy warning message "No newline at end of file"
   def end_with_nl(object)
     string = object.to_s
-    needs_modifying = string && string.size > 0 && string[-1] != "\n"
+    needs_modifying = string.size > 0 && string[-1] != "\n"
     needs_modifying ? "#{string}\n" : string
   end
 

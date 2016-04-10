@@ -54,6 +54,10 @@ describe Formatters do
       expect(Formatters.end_with_nl(nil)).to eq('')
     end
 
+    specify 'it returns false\n for false' do
+      expect(Formatters.end_with_nl(false)).to eq("false\n")
+    end
+
     specify "it converts a number and then adds a new line" do
       expect(Formatters.end_with_nl(3)).to eq("3\n")
     end
