@@ -93,7 +93,7 @@ class LinkedList
   def to_a
     current_node = @first
     array = []
-    while current_node != nil
+    while current_node
       array << current_node.value
       current_node = current_node.next
     end

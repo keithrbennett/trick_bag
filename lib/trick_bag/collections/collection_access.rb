@@ -1,5 +1,22 @@
-# Supports access to nested hashes with a string instead of multiple []'s.
-# Inspired by Josh Szmajda's dot_notation gem at https://github.com/joshsz/dot_notation,
+# Supports access to nested hashes, arrays, etc., with a string instead of multiple []'s.
+# (e.g. 'myhostname.interfaces.0' instead of ['myhostname']['interfaces'][0])
+#
+# Inspired by Josh Szmajda's dot_notation gem at https://github.com/joshsz/dot_notation.
+#
+# The examples below assume a variable 'h' containing { x: [:red, :green, :blue] }
+#
+# 2 approaches are supported:
+#
+# 1) a method named 'access' to which you pass the aggregate object (collection)
+#    the keys as a single string or as an array, and, optionally, the separator
+#    character (which defaults to '.')
+#
+# 2) a lambda returned by the 'accessor' method that holds on to the collection so that
+#    you can call the lambda as if it were the object itself. This lambda calls the
+#    aforementioned 'access' method to do the main work.
+#
+# Please see the documentation of the methods below for further information.
+
 
 module TrickBag
 module CollectionAccess

@@ -13,7 +13,7 @@ module Enumerables
 #
 # Also supported is an optional fetch notification, a method or lambda that will
 # be called whenever a fetch is done.  This can be useful to update counters,
-# provide user feedback (e.g. a progress bar)
+# provide user feedback (e.g. a progress bar), etc.
 #
 # This is useful, for example, in network requests, when multiple requests can be sent
 # one immediately after another, and the responses can be collected as a group,
@@ -23,7 +23,7 @@ module Enumerables
 # to avoid the need to allow the lambda to modify the data array reference,
 # needlessly copying arrays,
 # and to eliminate the need for garbage collecting many array objects
-# (though the latter is not that important).
+# (though the latter is rarely important).
 class BufferedEnumerable
 
   include Enumerable
