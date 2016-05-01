@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "diffy", '~> 3.0'
 
 
-  if RUBY_VERSION >= '2'
+  if RUBY_VERSION.split('.').first.to_i >= 2
     spec.add_dependency 'net-ssh'
   else
     spec.add_dependency 'net-ssh', '= 2.9.2'

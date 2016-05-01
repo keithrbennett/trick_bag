@@ -1,3 +1,8 @@
+## v0.64.4
+
+* Fix net-ssh version error on Ruby versions < 2.  v0.64.2 did not work.
+
+
 ## v0.64.3
 
 * Fix retry_until_true_or_timeout bug.
