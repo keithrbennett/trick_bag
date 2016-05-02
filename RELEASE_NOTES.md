@@ -1,3 +1,8 @@
+## v0.64.5
+
+* Modified .travis.yml. as per suggestion on web to fix bundler problem:
+NoMethodError: undefined method `spec' for nil:NilClass
+
 ## v0.64.4
 
 * Fix net-ssh version error on Ruby versions < 2.  v0.64.2 did not work.
