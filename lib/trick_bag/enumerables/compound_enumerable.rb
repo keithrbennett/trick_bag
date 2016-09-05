@@ -106,6 +106,7 @@ class CompoundEnumerable
       new_values
     end
 
+    # TODO: Move conditional behavior outside of loop.
     enumerable.each do |thing|
       mode == :yields_arrays ? as_array.(thing) : as_hash.(thing)
     end

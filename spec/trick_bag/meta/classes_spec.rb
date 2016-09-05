@@ -33,7 +33,7 @@ end
     it 'should remove the class' do
       fn = -> do
         class ClassPatchTestClass; end
-        ClassPatchTestClass.new # to illustrate that it's available
+        expect(ClassPatchTestClass.new.class).to eq(ClassPatchTestClass) # to illustrate that it's available
         Classes.undef_class('ClassPatchTestClass', TrickBag::Meta)
       end
       fn.()

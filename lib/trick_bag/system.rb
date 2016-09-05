@@ -21,7 +21,7 @@ module System
   def command_available?(command)
     raise "Cannot be called on a non-Posix operating system." unless OS.posix?
     system("which #{command} > /dev/null")
-   end
+  end
 
 end
 end

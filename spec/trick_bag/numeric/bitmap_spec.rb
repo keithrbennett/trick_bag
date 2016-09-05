@@ -10,7 +10,7 @@ describe Bitmap do
 
 
   specify 'the constructor should not permit being explicitly called outside the class' do
-    expect(-> { Bitmap.new }).to raise_error(NoMethodError)
+    expect(-> { Bitmap.new(1) }).to raise_error(NoMethodError)
   end
 
 

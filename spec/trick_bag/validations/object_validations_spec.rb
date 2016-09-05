@@ -19,6 +19,7 @@ module TrickBag
       vars = [:@foo]
       -> { class AbCdEfG; def initialize; @foo = 'hi'; end; end }.()
       expect(-> { raise_on_nil_instance_vars(AbCdEfG.new, vars) }).not_to raise_error
+      Meta::Classes.undef_class('AbCdEfG')
     end
   end
 end

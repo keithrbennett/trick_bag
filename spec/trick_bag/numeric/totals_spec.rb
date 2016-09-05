@@ -15,7 +15,7 @@ module Numeric
       expect(Totals.map_percent_of_total([2, 4, 6, 8])).to eq([10, 20, 30, 40])
     end
 
-    it "returns an empty array when handed an empty array" do
+    it "returns an empty array when passed an empty array" do
       expect(Totals.map_percent_of_total([])).to eq([])
       expect(Totals.map_fraction_of_total([])).to eq([])
     end
