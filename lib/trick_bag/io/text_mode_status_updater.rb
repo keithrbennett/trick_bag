@@ -27,7 +27,9 @@ class TextModeStatusUpdater
   # Since this method uses ASCII escape sequences that would look messy in a file,
   # this method will silently return if the output stream is not a TTY, unless
   # @force_output_non_tty has been set to true.
-  def print
+  #
+  # @param args Optional arguments to be passed to the text generator
+  def print(*args)
 
     # If output is being redirected, don't print anything; it will look like garbage;
     # But if output was forced (e.g. to write to a string), then allow it.
@@ -38,7 +40,7 @@ class TextModeStatusUpdater
     else
       @outstream.print(move_cursor_left_text(@prev_text_length))
     end
-    text = @text_generator.().to_s
+    text = @text_generator.(*args).to_s
     @prev_text_length = text.length
     @outstream.print(clear_to_end_of_line_text + text)
   end
