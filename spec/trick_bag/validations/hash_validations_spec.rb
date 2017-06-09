@@ -62,6 +62,11 @@ describe Validations do
       my_hash = { foo: 1, bar: 2, baz: 3}
       expect(->() { raise_on_missing_keys(my_hash, :foo, :baz) }).not_to raise_error
     end
+
+    specify 'raise_on_missing_keys with key array should not raise an exception when all keys are present' do
+      my_hash = { foo: 1, bar: 2, baz: 3}
+      expect(->() { raise_on_missing_keys(my_hash, [:foo, :baz]) }).not_to raise_error
+    end
   end
 end
 end

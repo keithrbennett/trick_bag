@@ -18,6 +18,9 @@ module Validations
   # Looks to see which keys, if any, are missing from the hash.
   # @return nil if none missing, else comma separated string of missing keys.
   def missing_hash_entries_as_string(the_hash, *keys)
+    if keys.size == 1 && keys.first.is_a?(Array)
+      keys = keys.first
+    end
     missing_keys = missing_hash_entries(the_hash, *keys)
     missing_keys.empty? ? nil : missing_keys.inspect
   end
