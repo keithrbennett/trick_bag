@@ -22,7 +22,7 @@ class FileLineReader
 
   attr_reader :filespec, :start_and_max
 
-  # @param filespec - the file from which to read domain names; blank/empty lines and lines
+  # @param filespec - the file from which to read lines; blank/empty lines and lines
   #                   with the first nonblank character == '#' will be ignored.
   # @param start_pos - the record number, zero offset, at which to begin each() processing
   # @param max_count - the maximum number of records to be served by each()
