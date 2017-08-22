@@ -1,3 +1,4 @@
+require 'set'
 require 'tmpdir'
 
 require_relative '../../spec_helper'
@@ -74,5 +75,9 @@ describe 'Test gitignore' do
     end
 
     expect(failures).to eq([])
+  end
+
+  it 'should take an Enumerable that is not an Array' do
+    GI.list_ignored_files(Set.new(['target']))
   end
 end
