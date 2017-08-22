@@ -21,6 +21,7 @@ module Gitignore
     ignore_list.uniq!
     ignore_list.delete('.')
     ignore_list.delete('..')
+    ignore_list.reject! { |filespec| File.directory?(filespec) }
     ignore_list
   end
 end

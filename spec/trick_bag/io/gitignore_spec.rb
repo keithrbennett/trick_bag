@@ -14,8 +14,9 @@ describe 'Test gitignore' do
     Dir.mktmpdir do |tmpdir|
       Dir.chdir(tmpdir) do
         File.write('.gitignore', ignore_spec.join("\n"))
+        Dir.mkdir('a_dir')       # for some but not all tests
         Dir.mkdir('.hidden_dir') # for some but not all tests
-        FileUtils.touch(filename)
+        FileUtils.touch(filename)      # for some but not all tests
         ignored_files = GI.list_ignored_files
         in_ignore_list = ignored_files.include?(filename)
         success = (in_ignore_list == expected_to_be_in_ignore_list)
@@ -79,5 +80,9 @@ describe 'Test gitignore' do
 
   it 'should take an Enumerable that is not an Array' do
     GI.list_ignored_files(Set.new(['target']))
+  end
+
+  it 'should not include directories' do
+    expect(test_a_pair(['*'], false, 'a_dir')).to eq(true)
   end
 end
