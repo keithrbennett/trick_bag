@@ -24,6 +24,16 @@ module Gitignore
     ignore_list.reject! { |filespec| File.directory?(filespec) }
     ignore_list
   end
+
+
+  # Lists files that exist that would *NOT* be ignored by git based on the .gitignore file
+  # You may provide an Enumerable with the values that would normally be in the .gitignore file.
+  def list_included_files(ignore_spec = File.readlines('.gitignore'))
+    all_files = Dir.glob('**/*', File::FNM_DOTMATCH).reject do |filespec|
+      File.directory?(filespec)
+    end
+    all_files - list_ignored_files(ignore_spec)
+  end
 end
 
 end
