@@ -121,7 +121,7 @@ describe TrickBag::Io::Gitignore do
         let(:ignored_files)  { GI.list_ignored_files(ignore_spec).sort }
         let(:included_files) { GI.list_included_files(ignore_spec).sort }
         let(:intersection)   { included_files & ignored_files }
-        let(:union)          { included_files | ignored_files }
+        let(:union)          { (included_files | ignored_files).sort }
         let(:all_files) do
           Dir.glob('**/*', File::FNM_DOTMATCH).reject do |filespec|
             File.directory?(filespec)
@@ -129,7 +129,7 @@ describe TrickBag::Io::Gitignore do
         end
 
         it { expect(intersection).to eq([]), "expected no overlap between ignored and included for #{ignore_spec}, got #{intersection}" }
-        it { expect(union.sort).to eq(all_files), "expected ignored and included to contain all files for #{ignore_spec}, got #{union}" }
+        it { expect(union).to eq(all_files), "expected ignored and included to contain all files for #{ignore_spec}, got #{union}" }
       end
     end
   end
