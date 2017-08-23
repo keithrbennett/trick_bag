@@ -39,7 +39,7 @@ describe TrickBag::Io::Gitignore do
     ]
 
     test_inputs.each do |(ignore_spec, expected_result)|
-      context do # without a context block the way that rspec expands the examples causes the paramters to overwrite each other
+      context do # without a context block the way that rspec expands the examples causes the parameters to overwrite each other
         include_examples 'testing a pair', ignore_spec, expected_result, 'target'
       end
     end
@@ -56,7 +56,7 @@ describe TrickBag::Io::Gitignore do
     ]
 
     test_inputs.each do |(ignore_spec, expected_result)|
-      context do # without a context block the way that rspec expands the examples causes the paramters to overwrite each other
+      context do # without a context block the way that rspec expands the examples causes the parameters to overwrite each other
         include_examples 'testing a pair', ignore_spec, expected_result, '.target'
       end
     end
@@ -73,7 +73,7 @@ describe TrickBag::Io::Gitignore do
     ]
 
     test_inputs.each do |(ignore_spec, expected_result)|
-      context do # without a context block the way that rspec expands the examples causes the paramters to overwrite each other
+      context do # without a context block the way that rspec expands the examples causes the parameters to overwrite each other
         include_examples 'testing a pair', ignore_spec, expected_result, '.hidden_dir/.hidden_file'
       end
     end
