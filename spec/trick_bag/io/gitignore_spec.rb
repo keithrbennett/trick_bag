@@ -31,11 +31,11 @@ describe TrickBag::Io::Gitignore do
 
   context 'handling a nonhidden file in the root directory', :aggregate_failures do
     test_inputs = [
-      [[],             false],
-      [['target'],     true],
-      [['**/*arge*'],  true],
-      [['*'],          true],
-      [['*arge*'],     true],
+        [[],             false],
+        [['target'],     true],
+        [['**/*arge*'],  true],
+        [['*'],          true],
+        [['*arge*'],     true],
     ]
 
     test_inputs.each do |(ignore_spec, expected_result)|
@@ -90,18 +90,18 @@ describe TrickBag::Io::Gitignore do
 
   context 'includes should be all files not in ignore list', :aggregate_failures do
     test_inputs = [
-      [],
-      ['*'],
-      ['**/*'],
-      ['x/y/z'],
-      ['x/y/z/*'],
-      ['x/y/z/**/*'],
-      ['x/y/z/**/deep'],
-      ['.hidden_dir'],
-      ['.hidden_dir/'],
-      ['hidden_dir/'],
-      ['.hidden_dir/.*'],
-      ['.hidden_dir/.hidden_file'],
+        [],
+        ['*'],
+        ['**/*'],
+        ['x/y/z'],
+        ['x/y/z/*'],
+        ['x/y/z/**/*'],
+        ['x/y/z/**/deep'],
+        ['.hidden_dir'],
+        ['.hidden_dir/'],
+        ['hidden_dir/'],
+        ['.hidden_dir/.*'],
+        ['.hidden_dir/.hidden_file'],
     ]
 
     around do |example|
