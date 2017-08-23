@@ -7,53 +7,29 @@ require_relative '../../../lib/trick_bag/io/gitignore'
 GI=TrickBag::Io::Gitignore
 
 describe TrickBag::Io::Gitignore do
+  shared_examples_for 'testing a pair' do |ignore_spec, expected_result, filename|
+    let(:ignored_files)  { GI.list_ignored_files }
+    let(:in_ignore_list) { ignored_files.include?(filename) }
+    let(:error_message) do
+      "filename: '#{filename}', ignore_spec: #{ignore_spec}, expected result: #{expected_result}, got: #{in_ignore_list}, ignored files: #{ignored_files}"
+    end
 
-  # Pass this a block to perform in the test directory.
-  def create_and_populate_test_directory(ignore_spec)
-    Dir.mktmpdir do |tmpdir|
-      Dir.chdir(tmpdir) do
-        %w(a_dir  .hidden_dir  x/y/z).each { |dirspec| FileUtils.mkdir_p(dirspec) }
-        %w(root  a_dir/sub  .hidden_dir/.hidden_file  x/y/z/deep).each { |f| FileUtils.touch(f) }
-        File.write('.gitignore', ignore_spec.join("\n"))
-        yield
+    around do |example|
+      Dir.mktmpdir do |tmpdir|
+        Dir.chdir(tmpdir) do
+          File.write('.gitignore', ignore_spec.join("\n"))
+          Dir.mkdir('a_dir')        # for some but not all tests
+          Dir.mkdir('.hidden_dir')  # for some but not all tests
+          FileUtils.touch(filename) # for some but not all tests
+          example.run
+        end
       end
     end
+
+    it { expect(in_ignore_list).to eq(expected_result), error_message }
   end
 
-
-  # Returns true on success, false on failure
-  def test_a_pair(ignore_spec, expected_to_be_in_ignore_list, filename)
-    success = :uninitialized
-    Dir.mktmpdir do |tmpdir|
-      Dir.chdir(tmpdir) do
-        File.write('.gitignore', ignore_spec.join("\n"))
-        Dir.mkdir('a_dir')       # for some but not all tests
-        Dir.mkdir('.hidden_dir') # for some but not all tests
-        FileUtils.touch(filename)      # for some but not all tests
-        ignored_files = GI.list_ignored_files
-        in_ignore_list = ignored_files.include?(filename)
-        success = (in_ignore_list == expected_to_be_in_ignore_list)
-      end
-    end
-    success
-  end
-
-
-  def test_included_and_ignored(ignore_spec)
-
-    all_files = Dir.glob('**/*', File::FNM_DOTMATCH).reject do |filespec|
-      File.directory?(filespec)
-    end.sort
-    ignored_files = GI.list_ignored_files(ignore_spec).sort
-    included_files = GI.list_included_files(ignore_spec).sort
-
-    expect(included_files & ignored_files).to eq([])
-    expect((included_files | ignored_files).sort).to eq(all_files)
-  end
-
-
-  it 'should correctly handle a nonhidden file in the root directory' do
-
+  context 'handling a nonhidden file in the root directory', :aggregate_failures do
     test_inputs = [
         [[],             false],
         [['target'],     true],
@@ -62,15 +38,14 @@ describe TrickBag::Io::Gitignore do
         [['*arge*'],     true],
     ]
 
-    failures = test_inputs.select do |(ignore_spec, expected_result)|
-      (test_a_pair(ignore_spec, expected_result, 'target') == false)
+    test_inputs.each do |(ignore_spec, expected_result)|
+      context do # without a context block the way that rspec expands the examples causes the parameters to overwrite each other
+        include_examples 'testing a pair', ignore_spec, expected_result, 'target'
+      end
     end
-
-    expect(failures).to eq([])
   end
 
-  it 'should correctly handle a hidden file in the root directory' do
-
+  context 'handling a hidden file in the root directory', :aggregate_failures do
     test_inputs = [
         [[],             false],
         [['.target'],    true],
@@ -80,15 +55,14 @@ describe TrickBag::Io::Gitignore do
         [['*arge*'],     true],
     ]
 
-    failures = test_inputs.select do |(ignore_spec, expected_result)|
-      (test_a_pair(ignore_spec, expected_result, '.target') == false)
+    test_inputs.each do |(ignore_spec, expected_result)|
+      context do # without a context block the way that rspec expands the examples causes the parameters to overwrite each other
+        include_examples 'testing a pair', ignore_spec, expected_result, '.target'
+      end
     end
-
-    expect(failures).to eq([])
   end
 
-  it 'should correctly handle hidden files in subdirectories of hidden directories' do
-
+  context 'handling hidden files in subdirectories of hidden directories', :aggregate_failures do
     test_inputs = [
         [[],                  false],
         [['.hidden_dir'],     false],
@@ -98,23 +72,23 @@ describe TrickBag::Io::Gitignore do
         [['.hidden_dir/.hidden_file'],  true],
     ]
 
-    failures = test_inputs.select do |(ignore_spec, expected_result)|
-      (test_a_pair(ignore_spec, expected_result, '.hidden_dir/.hidden_file') == false)
+    test_inputs.each do |(ignore_spec, expected_result)|
+      context do # without a context block the way that rspec expands the examples causes the parameters to overwrite each other
+        include_examples 'testing a pair', ignore_spec, expected_result, '.hidden_dir/.hidden_file'
+      end
     end
-
-    expect(failures).to eq([])
   end
 
   it 'should take an Enumerable that is not an Array' do
     GI.list_ignored_files(Set.new(['target']))
   end
 
-  it 'should not include directories' do
-    expect(test_a_pair(['*'], false, 'a_dir')).to       eq(true)
-    expect(test_a_pair(['*'], false, '.hidden_dir')).to eq(true)
+  context 'directories should not be included', :aggregate_failures do
+    context { include_examples 'testing a pair', ['*'], false, 'a_dir' }
+    context { include_examples 'testing a pair', ['*'], false, '.hidden_dir' }
   end
 
-  specify 'includes should be all files not in ignore list', :aggregate_failures do
+  context 'includes should be all files not in ignore list', :aggregate_failures do
     test_inputs = [
         [],
         ['*'],
@@ -129,9 +103,33 @@ describe TrickBag::Io::Gitignore do
         ['.hidden_dir/.*'],
         ['.hidden_dir/.hidden_file'],
     ]
-    test_inputs.select do |ignore_spec|
-      create_and_populate_test_directory(ignore_spec) do
-        test_included_and_ignored(ignore_spec)
+
+    around do |example|
+      Dir.mktmpdir do |tmpdir|
+        Dir.chdir(tmpdir) do
+          %w(a_dir  .hidden_dir  x/y/z).each { |dirspec| FileUtils.mkdir_p(dirspec) }
+          %w(root  a_dir/sub  .hidden_dir/.hidden_file  x/y/z/deep).each { |f| FileUtils.touch(f) }
+          File.write('.gitignore', ignore_spec.join("\n"))
+          example.run
+        end
+      end
+    end
+
+    test_inputs.each do |ignore_spec|
+      context do
+        let(:ignore_spec)    { ignore_spec }
+        let(:ignored_files)  { GI.list_ignored_files(ignore_spec).sort }
+        let(:included_files) { GI.list_included_files(ignore_spec).sort }
+        let(:intersection)   { included_files & ignored_files }
+        let(:union)          { (included_files | ignored_files).sort }
+        let(:all_files) do
+          Dir.glob('**/*', File::FNM_DOTMATCH).reject do |filespec|
+            File.directory?(filespec)
+          end.sort
+        end
+
+        it { expect(intersection).to eq([]), "expected no overlap between ignored and included for #{ignore_spec}, got #{intersection}" }
+        it { expect(union).to eq(all_files), "expected ignored and included to contain all files for #{ignore_spec}, got #{union}" }
       end
     end
   end
