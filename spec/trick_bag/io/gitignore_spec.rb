@@ -128,8 +128,10 @@ describe TrickBag::Io::Gitignore do
           end.sort
         end
 
-        it { expect(intersection).to eq([]), "expected no overlap between ignored and included for #{ignore_spec}, got #{intersection}" }
-        it { expect(union).to eq(all_files), "expected ignored and included to contain all files for #{ignore_spec}, got #{union}" }
+        it { expect(intersection).to eq([]),
+            "expected no overlap between ignored and included for #{ignore_spec}, got #{intersection}" }
+        it { expect(union).to eq(all_files),
+            "expected ignored and included to contain all files for #{ignore_spec}, but neither contained: #{all_files - union}" }
       end
     end
   end
