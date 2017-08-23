@@ -11,7 +11,7 @@ describe TrickBag::Io::Gitignore do
     let(:ignored_files)  { GI.list_ignored_files }
     let(:in_ignore_list) { ignored_files.include?(filename) }
     let(:context) do
-      "ignore_spec: #{ignore_spec}, ignored files: #{ignored_files}, filename: '#{filename}', expected result: #{expected_result}, got: #{in_ignore_list}"
+      "filename: '#{filename}', ignore_spec: #{ignore_spec}, expected result: #{expected_result}, got: #{in_ignore_list}, ignored files: #{ignored_files}"
     end
 
     around do |example|
