@@ -10,7 +10,7 @@ describe TrickBag::Io::Gitignore do
   shared_examples_for 'testing a pair' do |ignore_spec, expected_result, filename|
     let(:ignored_files)  { GI.list_ignored_files }
     let(:in_ignore_list) { ignored_files.include?(filename) }
-    let(:context) do
+    let(:error_message) do
       "filename: '#{filename}', ignore_spec: #{ignore_spec}, expected result: #{expected_result}, got: #{in_ignore_list}, ignored files: #{ignored_files}"
     end
 
@@ -26,7 +26,7 @@ describe TrickBag::Io::Gitignore do
       end
     end
 
-    it { expect(in_ignore_list).to eq(expected_result), context }
+    it { expect(in_ignore_list).to eq(expected_result), error_message }
   end
 
   context 'handling a nonhidden file in the root directory', :aggregate_failures do
