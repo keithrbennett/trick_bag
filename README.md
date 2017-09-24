@@ -35,15 +35,15 @@ e.g. `TrickBag::CollectionAccess::access('customer', 'contact_info', 'address', 
 
 ## Enumerables
 
-* `BufferedEnumerable` - enumerable handling the mechanics of buffering and fetching; you provide fetcher
+* `BufferedEnumerable` - enumerable handling the high level timing of buffering and fetching; you provide fetcher
 and (optionally) fetch notifier callables
 * `CompoundEnumberable` - an enumerator used to provide all combinations of a set of Enumerables.
 * `EndlessLastEnumerable` - wraps another enumerable, and after it is exhausted, yields the same value on successive calls
 * `FileLineReader` - Reads a file containing strings, one on each line, and feeds them
-  in its each() method.  Strips all lines leading and trailing whitespace,
-  and ignores all empty lines and lines beginning with the comment character '#'.
+  in its each() method.  Strips all lines' leading and trailing whitespace,
+  and ignores all empty lines and lines beginning with the comment character `#`.
   Especially useful in reading configuration files.
-* `FilteredEnumerable` - like `my_enumerable.lazy.select { ... }.lazy, but supports changing the filter at any time
+* `FilteredEnumerable` - like `my_enumerable.lazy.select { ... }.lazy`, but supports changing the filter at any time
 
 ## Formatters
 
@@ -52,14 +52,15 @@ and (optionally) fetch notifier callables
 0x   0  00 07 0E 15 | 1C 23 2A 31 | 38 3F 46 4D | 54 5B 62 69  .....#*18?FMT[bi
 0x  10  70 77 7E 85 | 8C 93 9A A1 | A8 AF B6 BD | C4 CB D2 D9  pw~.............
 ```
-* `ErbRenderer` - convenience class for using a hash instead of the current binding for ERB rendering
-* `Formatters.duration_to_s - formats number of seconds to string like "11 d, 13 h, 46 m, 40 s"
+* `ErbRenderer` - convenience class  for ERB rendering; simplifies using a specific set of key/value pairs
+  as opposed to the current binding
+* `Formatters.duration_to_s` - formats number of seconds to string like `11 d, 13 h, 46 m, 40 s`
 * `Formatters.end_with_n` - reverse of `String#chomp` - 
   useful for use with utilities like Diffy that complain about lines without line endings.
-* `Formatters.timestamp` - returns a timestamp string in the year-month-day-hour-minute-second
-  form, e.g. `2014-03-24_15-25-57`.
+* `Formatters.timestamp` - returns a timestamp string suitable for use in file names
+  in the year-month-day-hour-minute-second form, e.g. `2014-03-24_15-25-57`.
 * `Formatters.replace_with_timestamp` - replaces a token with the timestamp, as in:
-  'my-app-result-{dt}.txt') => 'my-app-result-2014-03-24_15-25-57.txt'
+  `my-app-result-{dt}.txt` => `my-app-result-2014-03-24_15-25-57.txt`
   Especially useful for generating file names.
 * `Formatters.dos2unix[!]` - formats a string with Unix line endings
 * `Formatters.array_diff` - returns a nicely formatted output of the difference between 2 arrays
@@ -71,8 +72,8 @@ and (optionally) fetch notifier callables
          0          97         61 x          110 0001 b       a
          1          49         31 x           11 0001 b       1
 ```  
-* `Formatters.thousands_separated` - adds thousands separators to a string as appropriate
-
+* `Formatters.thousands_separated` - adds thousands separators to an Integer 
+  string representation as appropriate
 
 
 ## Contributing

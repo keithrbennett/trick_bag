@@ -1,4 +1,8 @@
 module TrickBag
+module Functional
+
+  # These methods provide a shorthand for testing whether or not an object
+  # meets an Enumerable of conditional callables.
 
   module_function
 
@@ -22,4 +26,5 @@ module TrickBag
   def any_with_object?(conditions, object)
     conditions.any? { |condition| condition.(object) }
   end
+end
 end
