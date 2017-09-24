@@ -1,3 +1,5 @@
+require 'tempfile'
+
 module TrickBag
 module Io
 module TempFiles
