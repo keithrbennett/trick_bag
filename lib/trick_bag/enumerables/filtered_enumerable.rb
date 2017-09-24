@@ -8,6 +8,14 @@ module Enumerables
 #
 # The filter is an optional parameter on the constructor, but can
 # also be set after creation with a mutator.
+#
+# If you do not intend to change the filter after it is created,
+# you should probably just use Ruby's built in lazy enumerators, as in:
+# e = (1..10000000000000000000000000000).lazy.select { |n| n.even? }.lazy
+#
+# This class really comes in handy when the filter needs to be changed during
+# the enumerator's lifetime.
+
 class FilteredEnumerable
 
   include Enumerable

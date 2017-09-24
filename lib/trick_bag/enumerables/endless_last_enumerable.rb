@@ -3,9 +3,9 @@ require 'set'
 module TrickBag
 module Enumerables
 
-# Takes an array as input.  On successive calls to next, it returns the next
-# element in the array until the array has been exhausted, and then returns
-# the last element every time it's called.
+# Takes an enumerable or number as input.  On successive calls to next, it returns the next
+# element in the that enumerable until it has been exhausted, and then returns
+# the last element every time it's called. Especially useful in reading configuration files.
 #
 # You can use Ruby's array addition and multiplication features
 # to provide rich functionality, e.g.:

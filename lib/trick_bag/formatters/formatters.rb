@@ -55,6 +55,7 @@ module Formatters
   end
 
 
+  # Reverse of String#chomp.
   # Convert to string if not already a string.
   # Append new line to string if the string is not empty and does not already end with one.
   # This is to disable the Diffy warning message "No newline at end of file"
@@ -80,7 +81,7 @@ module Formatters
   # for example:
   #
   # replace_with_timestamp('my-app-result-{dt}.txt') => "my-app-result-2014-03-24_15-25-57.txt"
-    def replace_with_timestamp(string, marker = '{dt}', datetime = DateTime.now)
+  def replace_with_timestamp(string, marker = '{dt}', datetime = DateTime.now)
     string.gsub(marker, timestamp(datetime))
   end
 
