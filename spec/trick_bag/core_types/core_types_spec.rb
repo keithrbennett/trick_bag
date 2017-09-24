@@ -1,5 +1,5 @@
 require_relative '../../spec_helper'
-require 'trick_bag/core_types'
+require_relative '../../../lib/trick_bag/core_types/core_types'
 
 module TrickBag
 
