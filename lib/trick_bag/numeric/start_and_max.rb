@@ -1,8 +1,10 @@
 module TrickBag
 module Numeric
 
-  # Like a Range, but includes useful functions with understandable names
-  # that account for the limits or absences of limits.
+  # Provides an object that will tell you if the number exceeds the starting point
+  # and if the number is >= the maximum (or if no maximum has been specified).
+  # While this functionality can easily be duplicated with more primitive
+  # code, this class provides an object whose use will be simpler and more readable.
   class StartAndMax
 
   attr_reader :start_pos, :max_count

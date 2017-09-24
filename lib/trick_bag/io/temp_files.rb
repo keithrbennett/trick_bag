@@ -6,8 +6,8 @@ module TempFiles
 
     module_function
 
-    # Creates a temporary file containing the specified text,
-    # passes its filespec to the passed block, then deletes the file.
+    # For the easy creation and deletion of a temp file populated with text,
+    # wrapped around the code block you provide.
     #
     # @param text the text to write to the temporary file
     # @param file_prefix optional prefix for the temporary file's name

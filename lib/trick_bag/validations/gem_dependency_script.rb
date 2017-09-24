@@ -5,7 +5,7 @@ module TrickBag
 
   # NOTE! If the gem you are testing defines a .gemspec file,
   # then this approach may be eliminated by instead
-  # running the following command in the project root (thank you, Rob Kidd):
+  # running the following command in the project root (thank you, Robb Kidd):
 
   # bundle exec ruby -e "require 'my_gem_name'"
 

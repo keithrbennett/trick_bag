@@ -9,8 +9,10 @@ module Timing
 
 
   # Calls a predicate proc repeatedly, sleeping the specified interval
-  # between calls, and giving up after the specified number of seconds.
+  # between calls, returning if the predicate returns true,
+  # and giving up after the specified number of seconds.
   # Displays elapsed and remaining times on the terminal.
+  # Outputs the time elapsed and the time to go.
   #
   # @param predicate something that can be called with .() or .call
   #   that returns a truthy value that indicates no further retries are necessary

@@ -1,7 +1,7 @@
 module TrickBag
 module Numeric
 
-# Supports multiple counts, each identified by a key.
+# Simplifies accumulating counts of multiple objects.
 # Like a hash, but does not allow []=; increment is the only way to modify a value.
 class MultiCounter
 

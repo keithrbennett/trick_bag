@@ -1,6 +1,8 @@
 module TrickBag
 module Io
 
+# Provides an updatable and customizable status/information line in a terminal,
+# typically used to display progress.
 # Updates the terminal line with text, erasing the original content and displaying at the same place.
 # Uses ANSI escape sequences for cursor positioning and clearing
 # (see http://www.oldlinux.org/Linux.old/Ref-docs/ASCII/ANSI%20Escape%20Sequences.htm).
