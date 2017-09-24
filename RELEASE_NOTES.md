@@ -1,7 +1,22 @@
+## v0.66.0
+
+* Add TrickBag::Io::Gitignore.list_ignored_files.
+
+
+## v0.65.1
+
+* Fix bug in TrickBag::Validations when raise_on_missing_keys was passed an array.
+
+
+## v0.65.0
+* Add ability to pass values through print() to TextModeStatusUpdater's text generator. Version 0.65.0.
+
+
 ## v0.64.5
 
 * Modified .travis.yml. as per suggestion on web to fix bundler problem:
 NoMethodError: undefined method `spec' for nil:NilClass
+
 
 ## v0.64.4
 
