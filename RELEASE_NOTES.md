@@ -1,3 +1,9 @@
+## v0.67.0
+
+* Move Functional methods into Functional module.
+* Improve README, esp. add class/method summaries.
+
+
 ## v0.66.0
 
 * Add TrickBag::Io::Gitignore.list_ignored_files.

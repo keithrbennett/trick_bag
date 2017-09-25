@@ -21,10 +21,8 @@ Or install it yourself as:
 
 ## Usage
 
-Really the best way to understand the usage is to look at the unit tests in the spec directory tree,
-the comments in the source files, and the source code itself.
-
-That said, here is a summary:
+The best ways to understand the usage are to look at a) the unit tests in the spec directory tree,
+b) the comments in the source files, and c) the source code itself. That said, here is a summary:
 
 ### CollectionAccess
 
@@ -159,6 +157,23 @@ for both stdout and stderr, so the predicate can easily inspect the text.
 
 `clone_hash_except` - creates a copy of a hash except for the specified keys (this functionality
 is already included in Rails, but not in Ruby itself)
+
+
+## Why?
+
+This library was born when I was writing a lot of testing tools and data collection and analysis software.
+At that time I also mentored a team of software testers using Ruby and Cucumber. I saw coding patterns that existed
+in multiple places, in varying levels of functionality and quality, or sometimes, totally absent when
+they would have been helpful. Why not implement these patterns once in a shared and tested library?
+
+Some may be very thin layers over the underlying Ruby implementations (e.g. the _Elapser_ class),
+and their usefulness may be questioned...but in the calling code, the use of these is more intention-revealing,
+object oriented, and results in more concise calling code.
+
+This gem's files, classes, and methods are for the most part isolated from each other and self-contained.
+This means that if you like you can easily copy single methods or files from the gem and copy them into
+your code base to eliminate a dependency on this gem. If you do this, then I suggest you include an
+attribution to this gem so that future developers can consult it for fixes and enhancements.
 
 
 ## Contributing
