@@ -1,3 +1,8 @@
+## v0.68.0
+
+* Add Filesystem.running_as_script?
+
+
 ## v0.67.0
 
 * Move Functional methods into Functional module.

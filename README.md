@@ -2,8 +2,8 @@
 
 # TrickBag
 
-This gem is a collection of useful classes and modules for Ruby development.
-
+Assorted Ruby classes, modules, and methods to simplify and enhance your code.
+ 
 
 ## Installation
 
