@@ -34,7 +34,8 @@ module Filesystem
     basename = File.basename($0)
     gem_paths.any? do |path|
       ($0 == File.join(path, 'bin', basename)) \
-        && (path == File.expand_path(File.join(__file__, '..', '..', '..', '..')))
+          && \
+          (path == File.expand_path(File.join(__file__, '..', '..', '..', '..')))
     end
   end
 end

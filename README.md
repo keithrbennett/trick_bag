@@ -158,7 +158,11 @@ for both stdout and stderr, so the predicate can easily inspect the text.
 `clone_hash_except` - creates a copy of a hash except for the specified keys (this functionality
 is already included in Rails, but not in Ruby itself)
 
+```ruby
+asfsadfas
+asfsdaffas
 
+```
 ## Why?
 
 This library was born when I was writing a lot of testing tools and data collection and analysis software.
