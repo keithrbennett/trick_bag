@@ -116,7 +116,9 @@ class SshOutputReader
 end
 
 
-
+# This is an eample of use of the class that will be run if the file is run explicitly
+# i.e.: ruby ssh_output_reader.rb
+# This should be moved somewhere else.
 if $0 == __FILE__
 
   Thread.abort_on_exception = true
@@ -146,6 +148,8 @@ sleep 1
 echo 3
 sleep 1
 echo 4'
+
+  # TODO: Clean this up!
 
   # reader = SshOutputReader.new('localhost', command)
   # reader.run

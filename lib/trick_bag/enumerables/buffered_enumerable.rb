@@ -8,10 +8,10 @@ module Enumerables
 # fetches them in chunks.
 #
 # This class knows nothing about how to fetch anything; that behavior is provided
-# by either subclassing this class, or calling .create_with_lambdas and passing
-# a lambda that knows how to do that.
+# by either subclassing this class, or calling .create_with_callables and passing
+# a callable that knows how to do that.
 #
-# Also supported is an optional fetch notification, a method or lambda that will
+# Also supported is an optional fetch notification, a method or callable that will
 # be called whenever a fetch is done.  This can be useful to update counters,
 # provide user feedback (e.g. a progress bar), etc.
 #
@@ -19,8 +19,8 @@ module Enumerables
 # one immediately after another, and the responses can be collected as a group,
 # for improved performance.
 #
-# The fetch method and fetcher lambda modify the instance's data array directly,
-# to avoid the need to allow the lambda to modify the data array reference,
+# The fetch method and fetcher callable modify the instance's data array directly,
+# to avoid the need to allow the callable to modify the data array reference,
 # needlessly copying arrays,
 # and to eliminate the need for garbage collecting many array objects
 # (though the latter is rarely important).
@@ -37,20 +37,25 @@ class BufferedEnumerable
   attr_access :public,    :private,   :chunk_count, :fetch_count, :yield_count
 
 
-  # Creates an instance with lambdas for fetch and fetch notify behaviors.
+  # Creates an instance with callables for fetch and fetch notify behaviors.
+  # Callables are usually lambdas but can be any object responding to the method name `call`.
   # @param chunk_size the maximum number of objects to be buffered
-  # @param fetcher lambda to be called to fetch to fill the buffer
-  # @param fetch_notifier lambda to be called to when a fetch is done
-  def self.create_with_lambdas(chunk_size, fetcher, fetch_notifier = nil)
+  # @param fetcher callable to be called to fetch to fill the buffer
+  # @param fetch_notifier callable to be called to when a fetch is done
+  def self.create_with_callables(chunk_size, fetcher, fetch_notifier = nil)
     instance = self.new(chunk_size)
     instance.fetcher = fetcher
     instance.fetch_notifier = fetch_notifier
     instance
   end
+  class << self
+    alias_method :create_with_lambdas, :create_with_callables
+  end
 
-  # @param fetcher lambda to be called to fetch to fill the buffer
+
+  # @param fetcher callable to be called to fetch to fill the buffer
   # @param chunk_size the maximum number of objects to be buffered
-  # @param fetch_notifier lambda to be called to when a fetch is done
+  # @param fetch_notifier callable to be called to when a fetch is done
   #        in case the caller wants to receive notification, update counters, etc.
   #        It's passed the array of objects just fetched, whose size may be
   #        less than chunk size.
@@ -63,14 +68,14 @@ class BufferedEnumerable
   end
 
 
-  # Unless you use self.create_with_lambdas to create your instance,
+  # Unless you use self.create_with_callables to create your instance,
   # you'll need to override this method in your subclass.
   def fetch
     fetcher.(data, chunk_size) if fetcher
   end
 
 
-  # Unless you use self.create_with_lambdas to create your instance,
+  # Unless you use self.create_with_callables to create your instance,
   # you'll need to override this method in your subclass.
   def fetch_notify
     fetch_notifier.(data) if fetch_notifier

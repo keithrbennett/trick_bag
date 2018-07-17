@@ -6,7 +6,7 @@ module Enumerables
 
   describe BufferedEnumerable do
 
-    context 'when created with lambdas' do
+    context 'when created with callables' do
       # Returns an object that returns chunks of incrementing integers.
       let(:fetcher) do
         object = 0
@@ -27,19 +27,25 @@ module Enumerables
           object_count += fetched_objects.size
         end
 
-        e = BufferedEnumerable.create_with_lambdas(4, fetcher, fetch_notifier).to_enum
+        e = BufferedEnumerable.create_with_callables(4, fetcher, fetch_notifier).to_enum
         (1..10).each { |n| expect(e.next).to eq(n) }
         expect(chunk_fetch_calls).to eq(3)
         expect(object_count).to eq(12)
       end
 
-      specify 'create_with_lambdas can be called without specifying a fetch_notifier' do
+      specify 'create_with_callables can be called without specifying a fetch_notifier' do
         be = nil
-        f1 = -> { be = BufferedEnumerable.create_with_lambdas(4, fetcher).to_enum }
+        f1 = -> { be = BufferedEnumerable.create_with_callables(4, fetcher).to_enum }
         expect(f1).not_to raise_error
         f2 = -> { (1..10).each { be.next } }
         expect(f2).not_to raise_error
       end
+    end
+
+
+    specify 'create with old method name create_with_lambdas still works' do
+      buffered_enumerable = BufferedEnumerable.create_with_lambdas(4, ->() {}, ->() {})
+      expect(buffered_enumerable.class).to eq(BufferedEnumerable)
     end
 
 
