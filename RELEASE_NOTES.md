@@ -1,3 +1,8 @@
+## v0.69.0
+
+In BufferedEnumerable, rename create_with_lambdas to create_with_callables. Create alias so old name still works.
+
+
 ## v0.68.0
 
 * Add Filesystem.running_as_script?
