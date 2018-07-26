@@ -38,7 +38,14 @@ module Enumerables
         f1 = -> { be = BufferedEnumerable.create_with_callables(4, fetcher).to_enum }
         expect(f1).not_to raise_error
         f2 = -> { (1..10).each { be.next } }
-        expect(f2).not_to raise_error
+      end
+
+      specify 'create_with_callables *cannot* be called without specifying a fetcher' do
+        be = nil
+        f1 = -> { be = BufferedEnumerable.create_with_callables(4, nil).to_enum }
+        expect(f1).not_to raise_error
+        f2 = -> {  be.next }
+        expect(f2).to raise_error(TrickBag::Enumerables::BufferedEnumerable::NoFetcherError)
       end
     end
 

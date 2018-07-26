@@ -36,6 +36,8 @@ class BufferedEnumerable
   attr_access :protected, :protected, :data
   attr_access :public,    :private,   :chunk_count, :fetch_count, :yield_count
 
+  class NoFetcherError < RuntimeError; end
+
 
   # Creates an instance with callables for fetch and fetch notify behaviors.
   # Callables are usually lambdas but can be any object responding to the method name `call`.
@@ -71,7 +73,11 @@ class BufferedEnumerable
   # Unless you use self.create_with_callables to create your instance,
   # you'll need to override this method in your subclass.
   def fetch
-    fetcher.(data, chunk_size) if fetcher
+    if fetcher
+      fetcher.(data, chunk_size)
+    else
+      raise NoFetcherError.new
+    end
   end
 
 
