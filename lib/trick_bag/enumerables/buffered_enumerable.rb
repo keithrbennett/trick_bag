@@ -44,6 +44,9 @@ class BufferedEnumerable
   # @param chunk_size the maximum number of objects to be buffered
   # @param fetcher callable to be called to fetch to fill the buffer
   # @param fetch_notifier callable to be called to when a fetch is done
+  #        in case the caller wants to receive notification, update counters, etc.
+  #        It's passed the array of objects just fetched, whose size may be
+  #        less than chunk size.
   def self.create_with_callables(chunk_size, fetcher, fetch_notifier = nil)
     instance = self.new(chunk_size)
     instance.fetcher = fetcher
@@ -55,12 +58,7 @@ class BufferedEnumerable
   end
 
 
-  # @param fetcher callable to be called to fetch to fill the buffer
   # @param chunk_size the maximum number of objects to be buffered
-  # @param fetch_notifier callable to be called to when a fetch is done
-  #        in case the caller wants to receive notification, update counters, etc.
-  #        It's passed the array of objects just fetched, whose size may be
-  #        less than chunk size.
   def initialize(chunk_size)
     @chunk_size = chunk_size
     @data = []
