@@ -1,3 +1,9 @@
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# IMPORTANT: MOST OF THE FUNCTIONALITY OF THIS MODULE HAS BEEN PROVIDED IN
+# THE RUBY 2.3+ RUNTIME IN THE FORM OF THE dig METHOD ON HASHES AND ARRAYS.
+# USING dig IS RECOMMENDED UNLESS YOU NEED A FEATURE OF THIS MODULE NOT SUPPORTED BY IT.
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#
 # Supports access to nested hashes, arrays, etc., with a string instead of multiple []'s.
 # (e.g. 'myhostname.interfaces.0' instead of ['myhostname']['interfaces'][0])
 #
