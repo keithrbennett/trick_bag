@@ -51,7 +51,7 @@ class CompoundEnumerable
   # Permissible values are [:yields_arrays, :yields_hashes].
   def initialize(mode, keys, *enumerables)
 
-    validate_inputs = ->do
+    validate_inputs = -> do
       raise ArgumentError.new("Mode must be either :yields_arrays or :yields_hashes") unless [:yields_arrays, :yields_hashes].include?(mode)
       raise ArgumentError.new("Keys not provided") if mode == :yields_hashes && (! keys.is_a?(Array))
       raise ArgumentError.new("No enumerables provided") if enumerables.empty?

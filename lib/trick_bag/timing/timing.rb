@@ -62,8 +62,8 @@ module Timing
     text_generator = ->() do
       now = Time.now
       elapsed = now - start_time
-      to_go = end_time - now
-      '%9.3f   %9.3f' % [elapsed, to_go]
+      remaining = end_time - now
+      '%9.3f   %9.3f' % [elapsed, remaining]
     end
     status_updater = ::TrickBag::Io::TextModeStatusUpdater.new(text_generator, output_stream)
 

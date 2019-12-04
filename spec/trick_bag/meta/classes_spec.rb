@@ -46,7 +46,7 @@ end
 
   context 'private_attr_reader' do
 
-    fn_create_class = ->do
+    fn_create_class = -> do
       class ClassPatchTestClass
         extend Classes
         private_attr_reader :foo
@@ -65,7 +65,7 @@ end
 
   context 'private_attr_writer' do
 
-    fn_create_class = ->do
+    fn_create_class = -> do
       class ClassPatchTestClass
         extend Classes
         private_attr_writer :foo
@@ -82,7 +82,7 @@ end
 
   context 'private_attr_accessor' do
 
-    fn_create_class = ->do
+    fn_create_class = -> do
       class ClassPatchTestClass
 
         extend Classes
@@ -109,7 +109,7 @@ end
 
   context 'attr_access(:public, :private, :foo)' do
 
-    fn_create_class = ->do
+    fn_create_class = -> do
       class ClassPatchTestClass
 
         extend Classes
@@ -138,7 +138,7 @@ end
 
   context 'attr_access(:private, :none, :foo)' do
 
-    fn_create_class = ->do
+    fn_create_class = -> do
       class ClassPatchTestClass
         extend Classes
         attr_access :private, :none, :foo
