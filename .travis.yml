@@ -9,6 +9,6 @@ before_install:
 rvm:
 - 2.6.2
 - 2.4.5
-- jruby-9.1.9.0
+- jruby-head
 
 script: "bundle exec rspec spec"
