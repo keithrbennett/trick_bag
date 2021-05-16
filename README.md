@@ -177,6 +177,10 @@ This means that if you like you can easily copy single methods or files from the
 your code base to eliminate a dependency on this gem. If you do this, then I suggest you include an
 attribution to this gem so that future developers can consult it for fixes and enhancements.
 
+## Logo
+
+Logo designed and generously contributed by Anhar Ismail (Github: [@anharismail](https://github.com/anharismail), Twitter: [@aizenanhar](https://twitter.com/aizenanhar)).
+
 
 ## Contributing
 
