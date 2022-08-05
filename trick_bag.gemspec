@@ -18,22 +18,18 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "os", '~> 0'
+  spec.add_dependency "os", '~> 1.1'
   spec.add_dependency "diffy", '~> 3.0'
 
 
-  if RUBY_VERSION.split('.').first.to_i >= 2
-    spec.add_dependency 'net-ssh'
-  else
-    spec.add_dependency 'net-ssh', '= 2.9.2'
-  end
+  spec.add_dependency 'net-ssh'
 
   spec.add_development_dependency "bundler"
-  spec.add_development_dependency "rake", ">= 12.3.3"
-  spec.add_development_dependency "rspec", '~> 3.0'
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rspec", '~> 3.11'
 
   unless /java/ === RUBY_PLATFORM
-    spec.add_development_dependency 'pry', '~> 0.10'
-    spec.add_development_dependency 'pry-byebug', '~> 2.0' if RUBY_VERSION >= '2'
+    spec.add_development_dependency 'pry', '~> 0.13'
+    spec.add_development_dependency 'pry-byebug', '~> 3.9'
   end
 end
