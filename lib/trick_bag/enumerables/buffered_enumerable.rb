@@ -21,9 +21,8 @@ module Enumerables
 #
 # The fetch method and fetcher callable modify the instance's data array directly,
 # to avoid the need to allow the callable to modify the data array reference,
-# needlessly copying arrays,
-# and to eliminate the need for garbage collecting many array objects
-# (though the latter is rarely important).
+# needlessly copying arrays, and to eliminate the need for garbage collecting
+# many array objects (though the latter is rarely important).
 class BufferedEnumerable
 
   include Enumerable
@@ -53,6 +52,8 @@ class BufferedEnumerable
     instance.fetch_notifier = fetch_notifier
     instance
   end
+
+
   class << self
     alias_method :create_with_lambdas, :create_with_callables
   end
@@ -110,7 +111,6 @@ class BufferedEnumerable
       yield(object_to_yield)
     end
   end
-
 end
 end
 end
