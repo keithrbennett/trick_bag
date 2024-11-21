@@ -1,3 +1,7 @@
+## v0.70.0
+
+* Use gem exec configure_trusted_publisher rubygem to restrict gem pushing.
+
 ## v0.69.0
 
 In BufferedEnumerable, rename create_with_lambdas to create_with_callables. Create alias so old name still works.
